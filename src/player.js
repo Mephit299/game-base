@@ -1,33 +1,68 @@
+import Projectile from "./Projectile";
+
 export default class Player{
     constructor(game){
     this.game = game;
     this.positionX = 200;
     this.positionY = 200;
-    this.speedX = 1;
-    this.speedY = 0;
+    this.width = 50;
+    this.height = 50;
     this.hp = 0;
+
+    this.speedX = 0;
+    this.speedY = 0;
+    this.maxSpeed = 5;
+
+    this.projectiles = [];
+    this.ammo = 10;
 
     }
 
     update(deltaTime){
+        if(this.game.keys.includes('ArrowUp') || this.game.keys.includes('w')) 
+            this.speedY = -this.maxSpeed;
+        else if(this.game.keys.includes('ArrowDown') || this.game.keys.includes('s')) 
+            this.speedY = this.maxSpeed;
+        else    this.speedY = 0;
+
+        if(this.game.keys.includes('ArrowLeft') || this.game.keys.includes('a'))
+            this.speedX = -this.maxSpeed;
+        else if(this.game.keys.includes(`ArrowRight`) || this.game.keys.includes('d'))
+            this.speedX = this.maxSpeed;
+        else    this.speedX = 0;
+          
         this.positionX += this.speedX;
-        
-       // if (event.keypress) {
-       //     if (event.keypress === d)
-       //         this.speedX = 5
-       //     if(event.keypress === a)
-       //         this.speedX = -5
-       //     this.positionX += this.speedX;
-       //     this.positionY += this.speedY
-       // }
-    }
+        this.positionY += this.speedY;
+
+        this.projectiles.forEach((projectile) => {
+            projectile.update()
+          })
+          this.projectiles = this.projectiles.filter(
+            (projectile) => !projectile.markedForDeletion
+          )
+
+        }
+    
 
     draw(context){
-        context.begainPath();
+      //  context.begainPath();
         context.fillStyle = "blue"
-        context.fillRect(this.positionX,this.positionY,50,50)
-        context.closePath();
+        context.fillRect(this.positionX,this.positionY,this.width,this.height)
+        //context.closePath();
+
+        this.projectiles.forEach((projectile) => {
+            projectile.draw(context)
+          })
+      
     }
 
+    shoot() {
+        if(this.ammo > 0){
+            this.projectiles.push(
+            new Projectile(this.game, this.positionX + this.width, this.positionY + this.height / 2)
+            )
+            this.ammo--
+        }
+      }
     
 }

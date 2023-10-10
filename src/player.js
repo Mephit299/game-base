@@ -7,7 +7,7 @@ export default class Player{
     this.positionY = 200;
     this.width = 50;
     this.height = 50;
-    this.hp = 0;
+    this.hp = 3;
 
     this.speedX = 0;
     this.speedY = 0;
@@ -15,6 +15,7 @@ export default class Player{
 
     this.projectiles = [];
     this.ammo = 10;
+    this.shootTimer = 0;
 
     }
 
@@ -40,29 +41,27 @@ export default class Player{
           this.projectiles = this.projectiles.filter(
             (projectile) => !projectile.markedForDeletion
           )
-
+          
+          if(this.shootTimer > 0)
+            this.shootTimer -= deltaTime
         }
     
 
     draw(context){
-      //  context.begainPath();
         context.fillStyle = "blue"
         context.fillRect(this.positionX,this.positionY,this.width,this.height)
-        //context.closePath();
 
-        this.projectiles.forEach((projectile) => {
-            projectile.draw(context)
-          })
-      
+        this.projectiles.forEach((projectile) => {projectile.draw(context)})
     }
 
     shoot() {
-        if(this.ammo > 0){
+        if(this.ammo > 0 && this.shootTimer <= 0){
             this.projectiles.push(
             new Projectile(this.game, this.positionX + this.width, this.positionY + this.height / 2)
             )
             this.ammo--
-        }
+            this.shootTimer = 500;
+        } 
       }
     
 }

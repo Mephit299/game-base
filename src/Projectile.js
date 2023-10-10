@@ -4,7 +4,7 @@ export default class Projectile{
     this.width = 8
     this.height = 6
     this.positionX = x
-    this.PositionY = y
+    this.positionY = y
 
     this.speed = 5
     this.damage = 1
@@ -19,6 +19,6 @@ export default class Projectile{
 
     draw(context){
         context.fillStyle = "black"
-        context.fillRect(this.positionX,this.PositionY,this.width,this.height)
+        context.fillRect(this.positionX,this.positionY,this.width,this.height)
     }
 }

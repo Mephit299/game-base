@@ -38,6 +38,15 @@ export default class Player{
           
         this.positionX += this.speedX;
         this.positionY += this.speedY;
+        if(this.positionX < 0)
+            this.positionX = 0;
+        if(this.positionX + this.width > this.game.width)
+            this.positionX = this.game.width - this.width;
+        if(this.positionY < 0)
+            this.positionY = 0;
+        if(this.positionY + this.height > this.game.height)
+            this.positionY = this.game.height - this.height
+
 
         this.projectiles.forEach((projectile) => {
             projectile.update(deltaTime)
@@ -70,10 +79,10 @@ export default class Player{
         } 
       }
       strike(){
-        this.projectiles.push(
-            new MeleeAttack(this.game)
-        )
-        this.baseballbatTimer = 300;
+        if(this.baseballbatTimer <=0){
+            this.projectiles.push(new MeleeAttack(this.game))
+        this.baseballbatTimer = 350;
+        }
       }
     
 }

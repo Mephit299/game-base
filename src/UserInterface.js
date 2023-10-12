@@ -36,8 +36,8 @@ export default class UserInterface{
         if (this.game.debug) {
             context.font = `15px Arial`
             context.textAlign = 'right'
-            context.fillText(`x: ${this.game.player.x}`, this.game.width - 20, 25)
-            context.fillText(`y: ${this.game.player.y}`, this.game.width - 20, 50)
+            context.fillText(`x: ${this.game.player.positionX}`, this.game.width - 20, 25)
+            context.fillText(`y: ${this.game.player.positionY}`, this.game.width - 20, 50)
             context.fillText(
                 `speedX: ${this.game.player.speedX}`,
                 this.game.width - 20,

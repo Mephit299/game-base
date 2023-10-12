@@ -1,4 +1,6 @@
 import Projectile from "./Projectile";
+import Baseballbat from "./MeleeAttack";
+import MeleeAttack from "./MeleeAttack";
 
 export default class Player{
     constructor(game){
@@ -16,6 +18,8 @@ export default class Player{
     this.projectiles = [];
     this.ammo = 10;
     this.shootTimer = 0;
+
+    this.baseballbatTimer = 0;
 
     }
 
@@ -36,14 +40,16 @@ export default class Player{
         this.positionY += this.speedY;
 
         this.projectiles.forEach((projectile) => {
-            projectile.update()
-          })
-          this.projectiles = this.projectiles.filter(
-            (projectile) => !projectile.markedForDeletion
-          )
-          
-          if(this.shootTimer > 0)
+            projectile.update(deltaTime)
+        })
+            this.projectiles = this.projectiles.filter(
+                (projectile) => !projectile.markedForDeletion
+            )
+
+        if(this.shootTimer > 0)
             this.shootTimer -= deltaTime
+        if(this.baseballbatTimer > 0)
+            this.baseballbatTimer -= deltaTime
         }
     
 
@@ -62,6 +68,12 @@ export default class Player{
             this.ammo--
             this.shootTimer = 500;
         } 
+      }
+      strike(){
+        this.projectiles.push(
+            new MeleeAttack(this.game)
+        )
+        this.baseballbatTimer = 300;
       }
     
 }

@@ -45,7 +45,8 @@ export default class Game {
         if (this.checkCollision(projectile, enemy)) {
           console.log("trevligt");
           enemy.markedForDeletion = true
-          projectile.markedForDeletion = true
+          if (!projectile.timedAttack)
+            projectile.markedForDeletion = true
         }
       })
     })

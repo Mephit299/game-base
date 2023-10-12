@@ -19,13 +19,13 @@ export default class Enemy{
         context.fillRect(this.positionX,this.positionY,this.width,this.height)
 
         if (this.game.debug) {
-            context.strokeRect(this.x, this.y, this.width, this.height)
+            context.strokeRect(this.positionX, this.positionY, this.width, this.height)
             context.fillStyle = 'black'
             context.font = '20px Arial'
-            context.fillText(this.lives, this.x, this.y - 5)
+            context.fillText(this.hp, this.positionX, this.positionY - 5)
             context.font = '12px Arial'
-            context.fillText(`x: ${this.x.toFixed()}`, this.x + 20, this.y - 5)
-            context.fillText(`y: ${this.y.toFixed()}`, this.x + 20, this.y - 20)
+            context.fillText(`x: ${this.positionX.toFixed()}`, this.positionX + 20, this.positionY - 5)
+            context.fillText(`y: ${this.positionY.toFixed()}`, this.positionX + 20, this.positionY - 20)
           }
 
     }

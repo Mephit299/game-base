@@ -22,6 +22,8 @@ export default class InputHandler {
               if (event.key === 'x') {
                 this.game.player.shoot()
               }
+              if (event.key === 'z')
+              this.game.player.strike()
 
 
             if (event.key === 'p') {

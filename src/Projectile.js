@@ -9,9 +9,12 @@ export default class Projectile{
     this.speed = 5
     this.damage = 1
     this.markedForDeletion = false
+
+    this.timedAttack = false
+    this.attackTime = 0;
     }
 
-    update(){
+    update(deltaTime){
         this.positionX += this.speed
         if (this.positionX > this.game.width)
             this.markedForDeletion = true

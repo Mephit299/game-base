@@ -2,6 +2,7 @@ import Player from "./player"
 import InputHandler from "./InputHandeler"
 import UserInterface from "./UserInterface"
 import Slime from "./Slime"
+import Platform from "./Platform"
 
 export default class Game {
   constructor(width, height) {
@@ -15,10 +16,18 @@ export default class Game {
     this.debug = false
     this.player = new Player(this)
     this.gameTime = 0;
+    this.score = 0;
     
     this.enemies = []
     this.enemyTimer = 0;
     this.enemyInterval = 1000;
+
+    this.ground = this.height - 70;
+    this.platforms = [
+      new Platform(this,0,this.ground,this.width,100),
+      new Platform(this, this.width - 200, 280, 200, 20),
+      new Platform(this, 200, 200, 300, 20)
+    ]
     
   }
 
@@ -45,18 +54,34 @@ export default class Game {
         if (this.checkCollision(projectile, enemy)) {
           console.log("trevligt");
           enemy.markedForDeletion = true
+          this.score++
           if (!projectile.timedAttack)
             projectile.markedForDeletion = true
         }
       })
     })
     this.enemies = this.enemies.filter((enemy) => !enemy.markedForDeletion)
+  
+    this.platforms.forEach((platform) => {
+      if (this.checkPlatformCollision(this.player, platform)) {
+        this.player.speedY = 0
+        this.player.positionY = platform.positionY - this.player.height
+        this.player.grounded = true
+      }
+      this.enemies.forEach((enemy) => {
+        if (this.checkPlatformCollision(enemy, platform)) {
+          enemy.speedY = 0
+          enemy.positionY = platform.positionY - enemy.height
+        }
+      })
+    })  
   }
 
   draw(context) {
-    this.ui.draw(context)
+    this.platforms.forEach((platform) => platform.draw(context))
     this.player.draw(context)
     this.enemies.forEach((enemy) => enemy.draw(context))
+    this.ui.draw(context)
   }
 
   addEnemySlime() {
@@ -70,5 +95,26 @@ export default class Game {
       object1.positionY < object2.positionY + object2.height &&
       object1.height + object1.positionY > object2.positionY
     )
+  }
+
+  checkPlatformCollision(object, platform) {
+    if (
+      object.positionY + object.height >= platform.positionY &&
+      object.positionY < platform.positionY &&
+      object.positionX + object.width >= platform.positionX &&
+      object.positionX <= platform.positionX + platform.width
+    ) {
+      if (object.grounded && object.positionY + object.height > platform.positionY) {
+        object.speedY = 0
+        object.positionY = platform.positionY - object.height
+        object.grounded = true
+      }
+      return true
+    } else {
+      if (object.grounded && object.positionY + object.height < platform.positionY) {
+        object.grounded = false
+      }
+      return false
+    }
   }
 }

@@ -7,3 +7,5 @@ Har typ bara läst och kopierat av koden som jag fick av Jens.
 Player kan nu göra en melee attack som istället för att försvina när den träffar något så har den en timer som bestämmer dess livstid.
 Player får inte längre gå utanför bannan.
 Början till patformar.
+* 16/10-2023
+Spelet har nu ett golv och platformar. Spelaren kan hoppa och är nu påverkad av gravitation istället för att den kan flyga. Score och health är nu utritat på ui. Slime är också påverkad av gravitation.

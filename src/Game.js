@@ -3,6 +3,7 @@ import InputHandler from "./InputHandeler"
 import UserInterface from "./UserInterface"
 import Slime from "./Slime"
 import Platform from "./Platform"
+import Zombie from "./zombie"
 
 export default class Game {
   constructor(width, height) {
@@ -18,7 +19,7 @@ export default class Game {
     this.gameTime = 0;
     this.score = 0;
     
-    this.enemies = []
+    this.enemies = [new Zombie(this,200,100)]
     this.enemyTimer = 0;
     this.enemyInterval = 1000;
 
@@ -72,6 +73,11 @@ export default class Game {
         if (this.checkPlatformCollision(enemy, platform)) {
           enemy.speedY = 0
           enemy.positionY = platform.positionY - enemy.height
+          if (enemy.stayOnPlatform){
+            if (enemy.positionX < platform.positionX || enemy.positionX + enemy.width > platform.positionX + platform.width)
+              enemy.speedX *= -1
+
+          }
         }
       })
     })  

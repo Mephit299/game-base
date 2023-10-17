@@ -1,16 +1,13 @@
 import Enemy from "./Enemy";
 
-export default class Slime extends Enemy{
-    constructor(game){
+export default class Zombie extends Enemy{
+    constructor(game,x,y,){
         super(game)
-        this.width = 32;
-        this.height = 32;
-        this.positionX = this.game.width;
-        this.positionY = Math.random() * (this.game.height * 0.9 - this.height);
-        this.speedX = Math.random() * -1.5 - 0.5;
-        this.hp = 2;
-        this.grounded = false
-
+        this.positionX = x;
+        this.positionY = y;
+        this.stayOnPlatform = true;
+        this.speedX = 2
+        
     }
 
     update() {

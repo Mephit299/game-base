@@ -4,9 +4,11 @@ export default class Enemy{
         this.positionX = 0;
         this.positionY = 0;
         this.speedX = 0;
+        this.speedY = 0;
         this.markedForDeletion = false;
         this.width = 50;
         this.height = 40;
+        this.stayOnPlatform = false
     }
 
     update(){

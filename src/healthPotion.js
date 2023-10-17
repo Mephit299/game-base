@@ -13,5 +13,6 @@ export default class HealthPotion extends Enemy{
     pickUp(){
         if (!this.game.gameOver)
         this.game.player.hp++
+        this.markedForDeletion = true;
     }
 }

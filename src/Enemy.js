@@ -11,6 +11,7 @@ export default class Enemy{
         this.stayOnPlatform = false;
         this.isCollectable = false;
         this.color = "yellow";
+        this.hp = 1;
     }
 
     update(){
@@ -31,6 +32,9 @@ export default class Enemy{
             context.fillText(`x: ${this.positionX.toFixed()}`, this.positionX + 20, this.positionY - 5)
             context.fillText(`y: ${this.positionY.toFixed()}`, this.positionX + 20, this.positionY - 20)
           }
-
+    }
+    isDead(){
+        if (this.hp <= 0) 
+        this.markedForDeletion = true;
     }
 }

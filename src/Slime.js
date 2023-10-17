@@ -8,7 +8,6 @@ export default class Slime extends Enemy{
         this.positionX = this.game.width;
         this.positionY = Math.random() * (this.game.height * 0.9 - this.height);
         this.speedX = Math.random() * -1.5 - 0.5;
-        this.hp = 2;
         this.grounded = false
 
     }

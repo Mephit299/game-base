@@ -10,6 +10,7 @@ export default class Player{
     this.width = 50;
     this.height = 50;
     this.hp = 3;
+    this.iFrames = 0;
 
     this.speedX = 0;
     this.speedY = 0;
@@ -68,12 +69,17 @@ export default class Player{
             this.shootTimer -= deltaTime
         if(this.baseballbatTimer > 0)
             this.baseballbatTimer -= deltaTime
+
+        if (this.iFrames > 0)
+            this.iFrames -= deltaTime;
         }
     
 
     draw(context){
         context.fillStyle = "blue"
         context.fillRect(this.positionX,this.positionY,this.width,this.height)
+        if (this.iFrames > 0)
+            context.strokeRect(this.positionX, this.positionY, this.width, this.height)
 
         this.projectiles.forEach((projectile) => {projectile.draw(context)})
     }

@@ -49,18 +49,23 @@ export default class Game {
     this.enemies.forEach((enemy) => {
       enemy.update(deltaTime)
       if (this.checkCollision(this.player, enemy)) {
-        enemy.markedForDeletion = true
         if (enemy.isCollectable){enemy.pickUp()}
-        else this.player.hp--
+        else{
+          if (this.player.iFrames <=0)
+            this.player.hp--
+          enemy.hp--
+          this.player.iFrames = 300;
+          }
       }
       this.player.projectiles.forEach((projectile) => {
         if (this.checkCollision(projectile, enemy)) {
-          enemy.markedForDeletion = true
+          enemy.hp -= projectile.damage
           this.score++
           if (!projectile.timedAttack)
             projectile.markedForDeletion = true
         }
       })
+      enemy.isDead()
     })
     this.enemies = this.enemies.filter((enemy) => !enemy.markedForDeletion)
   

@@ -1,10 +1,11 @@
 export default class Platform{
-    constructor(game, x, y, width, height){
+    constructor(game, x, y, width, height ,bool){
         this.game = game;
         this.positionX = x;
         this.positionY = y;
         this.width = width;
         this.height = height;
+        this.isSolid = bool;
     }
 
     update(){}

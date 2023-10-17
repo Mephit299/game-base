@@ -6,7 +6,7 @@ export default class Player{
     constructor(game){
     this.game = game;
     this.positionX = 200;
-    this.positionY = 200;
+    this.positionY = 300;
     this.width = 50;
     this.height = 50;
     this.hp = 3;
@@ -28,7 +28,7 @@ export default class Player{
         if(this.game.keys.includes('ArrowUp') && this.grounded || this.game.keys.includes('w') && this.grounded){
             this.speedY -= this.jumpSpeed;
             this.grounded = false;
-        }     
+        }  
     //    else if(this.game.keys.includes('ArrowDown') || this.game.keys.includes('s')) 
     //    this.speedY = this.maxSpeed;
     //    else    this.speedY = 0;

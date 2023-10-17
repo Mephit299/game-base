@@ -25,9 +25,9 @@ export default class Game {
 
     this.ground = this.height - 70;
     this.platforms = [
-      new Platform(this,0,this.ground,this.width,100),
-      new Platform(this, this.width - 200, 280, 200, 20),
-      new Platform(this, 200, 200, 300, 20)
+      new Platform(this,0,this.ground,this.width,100, true),
+      new Platform(this, this.width - 200, 280, 200, 20, true),
+      new Platform(this, 200, 200, 300, 20, true)
     ]
     
   }
@@ -65,9 +65,14 @@ export default class Game {
   
     this.platforms.forEach((platform) => {
       if (this.checkPlatformCollision(this.player, platform)) {
-        this.player.speedY = 0
+        if (this.player.speedY < 0 && this.player.height/3 + this.player.positionY > platform.positionY  && platform.isSolid){
+          this.player.positionY = platform.positionY + platform.height
+          
+        } else {
         this.player.positionY = platform.positionY - this.player.height
         this.player.grounded = true
+      }
+      this.player.speedY = 0
       }
       this.enemies.forEach((enemy) => {
         if (this.checkPlatformCollision(enemy, platform)) {
@@ -106,10 +111,10 @@ export default class Game {
   checkPlatformCollision(object, platform) {
     if (
       object.positionY + object.height >= platform.positionY &&
-      object.positionY < platform.positionY &&
+      object.positionY < platform.positionY + platform.height &&
       object.positionX + object.width >= platform.positionX &&
       object.positionX <= platform.positionX + platform.width
-    ) {
+    ) { 
       if (object.grounded && object.positionY + object.height > platform.positionY) {
         object.speedY = 0
         object.positionY = platform.positionY - object.height

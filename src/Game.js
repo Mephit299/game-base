@@ -18,7 +18,7 @@ export default class Game {
     this.debug = false
     this.player = new Player(this)
     this.gameTime = 0;
-    this.score = 0;
+    this.scoreCounter = 0;
     
     this.enemies = [new HealthPotion(this, 350 , 180),new Zombie(this,200,100)]
     this.enemyTimer = 0;
@@ -60,7 +60,6 @@ export default class Game {
       this.player.projectiles.forEach((projectile) => {
         if (this.checkCollision(projectile, enemy)) {
           enemy.hp -= projectile.damage
-          this.score++
           if (!projectile.timedAttack)
             projectile.markedForDeletion = true
         }

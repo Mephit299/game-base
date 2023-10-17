@@ -1,5 +1,4 @@
 import Projectile from "./Projectile";
-import Baseballbat from "./MeleeAttack";
 import MeleeAttack from "./MeleeAttack";
 
 export default class Player{
@@ -15,8 +14,9 @@ export default class Player{
     this.speedX = 0;
     this.speedY = 0;
     this.maxSpeed = 5;
-    this.jumpSpeed = 17
+    this.jumpSpeed = 15
     this.grounded = false;
+    this.coyoteFrames = 0;
 
     this.projectiles = [];
     this.ammo = 10;
@@ -26,8 +26,12 @@ export default class Player{
     }
 
     update(deltaTime){
-        if(this.game.keys.includes('ArrowUp') && this.grounded || this.game.keys.includes('w') && this.grounded){
-            this.speedY -= this.jumpSpeed;
+        if (this.grounded)
+            this.coyoteFrames = 3;
+        else this.coyoteFrames--
+
+        if(this.game.keys.includes('ArrowUp') && this.grounded || this.game.keys.includes('w') && this.coyoteFrames > 0 || this.game.keys.includes('ArrowUp') && this.coyoteFrames > 0 || this.game.keys.includes('w') && this.grounded){
+            this.speedY = -this.jumpSpeed;
             this.grounded = false;
         }  
     //    else if(this.game.keys.includes('ArrowDown') || this.game.keys.includes('s')) 

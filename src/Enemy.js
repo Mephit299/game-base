@@ -12,6 +12,7 @@ export default class Enemy{
         this.isCollectable = false;
         this.color = "yellow";
         this.hp = 1;
+        this.score = 1;
     }
 
     update(){
@@ -34,7 +35,10 @@ export default class Enemy{
           }
     }
     isDead(){
-        if (this.hp <= 0) 
-        this.markedForDeletion = true;
+        if (this.hp <= 0) {
+            this.markedForDeletion = true;
+            if (this.game.player.iFrames <= 0)
+            this.game.scoreCounter += this.score
+        }
     }
 }

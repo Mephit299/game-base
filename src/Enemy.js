@@ -8,7 +8,9 @@ export default class Enemy{
         this.markedForDeletion = false;
         this.width = 50;
         this.height = 40;
-        this.stayOnPlatform = false
+        this.stayOnPlatform = false;
+        this.isCollectable = false;
+        this.color = "yellow";
     }
 
     update(){
@@ -17,7 +19,7 @@ export default class Enemy{
     }
 
     draw(context){
-        context.fillStyle = "yellow"
+        context.fillStyle = this.color;
         context.fillRect(this.positionX,this.positionY,this.width,this.height)
 
         if (this.game.debug) {

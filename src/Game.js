@@ -4,6 +4,7 @@ import UserInterface from "./UserInterface"
 import Slime from "./Slime"
 import Platform from "./Platform"
 import Zombie from "./zombie"
+import HealthPotion from "./healthPotion"
 
 export default class Game {
   constructor(width, height) {
@@ -19,7 +20,7 @@ export default class Game {
     this.gameTime = 0;
     this.score = 0;
     
-    this.enemies = [new Zombie(this,200,100)]
+    this.enemies = [new HealthPotion(this, 350 , 180),new Zombie(this,200,100)]
     this.enemyTimer = 0;
     this.enemyInterval = 1000;
 
@@ -49,11 +50,11 @@ export default class Game {
       enemy.update(deltaTime)
       if (this.checkCollision(this.player, enemy)) {
         enemy.markedForDeletion = true
-        this.player.hp--
+        if (enemy.isCollectable){enemy.pickUp()}
+        else this.player.hp--
       }
       this.player.projectiles.forEach((projectile) => {
         if (this.checkCollision(projectile, enemy)) {
-          console.log("trevligt");
           enemy.markedForDeletion = true
           this.score++
           if (!projectile.timedAttack)

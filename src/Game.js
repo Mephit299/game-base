@@ -5,6 +5,8 @@ import Slime from "./Slime"
 import Platform from "./Platform"
 import Zombie from "./zombie"
 import HealthPotion from "./healthPotion"
+import Camera from "./Camera"
+import levelOne from "./levels/LevelOne"
 
 export default class Game {
   constructor(width, height) {
@@ -14,22 +16,26 @@ export default class Game {
     this.ui = new UserInterface(this)
     this.keys = []
     this.gameOver = false
-    this.gravity = 1
+    this.gravity = 0.5
     this.debug = false
     this.player = new Player(this)
     this.gameTime = 0;
     this.scoreCounter = 0;
+
     
     this.enemies = [new HealthPotion(this, 350 , 180),new Zombie(this,200,100)]
     this.enemyTimer = 0;
     this.enemyInterval = 1000;
-
+    
+    this.camera = new Camera(this, this.player.positionX, 0, 0, 100)
     this.ground = this.height - 70;
     this.platforms = [
       new Platform(this,0,this.ground,this.width,100, true),
       new Platform(this, this.width - 200, 280, 200, 20, true),
       new Platform(this, 200, 200, 300, 20, true)
     ]
+
+    this.level = new levelOne(this);
     
   }
 
@@ -40,6 +46,7 @@ export default class Game {
       this.gameTime += deltaTime
     }
     this.player.update(deltaTime)
+    this.camera.update(this.player)
 
     if(this.enemyTimer > this.enemyInterval && !this.gameOver){
       this.addEnemySlime();
@@ -68,7 +75,7 @@ export default class Game {
     })
     this.enemies = this.enemies.filter((enemy) => !enemy.markedForDeletion)
   
-    this.platforms.forEach((platform) => {
+    this.level.platforms.forEach((platform) => {
       if (this.checkPlatformCollision(this.player, platform)) {
         if (this.player.speedY < 0 && this.player.height/3 + this.player.positionY > platform.positionY  && platform.isSolid){
           this.player.positionY = platform.positionY + platform.height
@@ -94,10 +101,13 @@ export default class Game {
   }
 
   draw(context) {
-    this.platforms.forEach((platform) => platform.draw(context))
+  //  this.platforms.forEach((platform) => platform.draw(context))
+    this.ui.draw(context)
+    this.camera.apply(context); 
+    this.level.draw(context)
     this.player.draw(context)
     this.enemies.forEach((enemy) => enemy.draw(context))
-    this.ui.draw(context)
+    this.camera.reset(context);
   }
 
   addEnemySlime() {

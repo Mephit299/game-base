@@ -38,7 +38,7 @@ export default class Enemy{
         if (this.hp <= 0) {
             this.markedForDeletion = true;
             if (this.game.player.iFrames <= 0)
-            this.game.scoreCounter += this.score
+                this.game.scoreCounter += this.score
         }
     }
 }

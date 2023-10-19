@@ -14,9 +14,10 @@ export default class Player{
     this.speedX = 0;
     this.speedY = 0;
     this.maxSpeed = 5;
-    this.jumpSpeed = 15
+    this.jumpSpeed = 10
     this.grounded = false;
     this.coyoteFrames = 0;
+    this.direction = 1;
 
     this.projectiles = [];
     this.ammo = 10;
@@ -38,11 +39,16 @@ export default class Player{
     //    this.speedY = this.maxSpeed;
     //    else    this.speedY = 0;
 
-        if(this.game.keys.includes('ArrowLeft') || this.game.keys.includes('a'))
+        if(this.game.keys.includes('ArrowLeft') || this.game.keys.includes('a')){
             this.speedX = -this.maxSpeed;
-        else if(this.game.keys.includes(`ArrowRight`) || this.game.keys.includes('d'))
+            this.direction = -1;
+        }
+        else if(this.game.keys.includes(`ArrowRight`) || this.game.keys.includes('d')){
             this.speedX = this.maxSpeed;
+            this.direction = 1;
+        }
         else    this.speedX = 0;
+
         if (this.grounded) {
             this.speedY = 0
           } else {
@@ -54,12 +60,12 @@ export default class Player{
         this.positionY += this.speedY;
         if(this.positionX < 0)
             this.positionX = 0;
-        if(this.positionX + this.width > this.game.width)
-            this.positionX = this.game.width - this.width;
-        if(this.positionY < 0)
-            this.positionY = 0;
-        if(this.positionY + this.height > this.game.height)
-            this.positionY = this.game.height - this.height
+        //if(this.positionX + this.width > this.game.width)
+        //    this.positionX = this.game.width - this.width;
+        //if(this.positionY < 0)
+        //    this.positionY = 0;
+        //if(this.positionY + this.height > this.game.height)
+        //    this.positionY = this.game.height - this.height
 
 
         this.projectiles.forEach((projectile) => {

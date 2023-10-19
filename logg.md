@@ -9,3 +9,7 @@ Player får inte längre gå utanför bannan.
 Början till patformar.
 * 16/10-2023
 Spelet har nu ett golv och platformar. Spelaren kan hoppa och är nu påverkad av gravitation istället för att den kan flyga. Score och health är nu utritat på ui. Slime är också påverkad av gravitation.
+* 17/10-2023
+Se bara vad som blev commitat under lektionen
+* 19/10-2023
+Siedescrolling finns nu i spelet och grunder för att kunna gara en banna.

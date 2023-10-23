@@ -13,3 +13,5 @@ Spelet har nu ett golv och platformar. Spelaren kan hoppa och är nu påverkad a
 Se bara vad som blev commitat under lektionen
 * 19/10-2023
 Siedescrolling finns nu i spelet och grunder för att kunna gara en banna.
+* 23/10-2023
+man kan byta banna, slå i flera riktningar och lite buggfixing.

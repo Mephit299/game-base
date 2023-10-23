@@ -13,7 +13,6 @@ export default class MeleeAttack extends Projectile {
     }
 
     update(deltaTime) {
-        console.log(this.direction);
         if (this.direction === 1){
             this.positionX = this.game.player.width + this.game.player.positionX;
             this.positionY = this.game.player.height / 2 - this.height / 2 + this.game.player.positionY;

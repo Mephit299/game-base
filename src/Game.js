@@ -149,10 +149,16 @@ export default class Game {
 
   nextLevel(){
     this.currentLevel++
-    this.enemies  = this.level[this.currentLevel].enemies
-    this.player.positionX = 0;
-    this.player.positionY = 200;
-    if (this.currentLevel > this.level.length)
+    if (this.currentLevel >= this.level.length)
       this.currentLevel = 0;
+    this.enemies  = this.level[this.currentLevel].enemies
+    
+    this.player.positionX = 0;
+    this.player.positionY = 300;
+    this.player.ammo++
+    this.player.direction = 1;
+    if (this.player.hp < 5)
+      this.player.hp++
+    
   }
 }

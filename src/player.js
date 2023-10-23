@@ -20,7 +20,7 @@ export default class Player{
     this.direction = 1;
 
     this.projectiles = [];
-    this.ammo = 10;
+    this.ammo = 3;
     this.shootTimer = 0;
     this.baseballbatTimer = 0;
 

@@ -29,6 +29,8 @@ export default class InputHandler {
             if (event.key === 'p') {
               this.game.debug = !this.game.debug
             }
+            if(this.game.debug && event.key === 'l')
+                this.game.nextLevel();
       })
       window.addEventListener('keyup', (event) => {
         if (this.game.keys.indexOf(event.key) > -1) {

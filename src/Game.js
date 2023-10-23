@@ -7,6 +7,8 @@ import Zombie from "./zombie"
 import HealthPotion from "./healthPotion"
 import Camera from "./Camera"
 import levelOne from "./levels/LevelOne"
+import levelTwo from "./levels/LevelTwo"
+import NextLevelTrigger from "./NextLevelTrigger"
 
 export default class Game {
   constructor(width, height) {
@@ -23,7 +25,7 @@ export default class Game {
     this.scoreCounter = 0;
 
     
-    this.enemies = [new HealthPotion(this, 350 , 180),new Zombie(this,200,100)]
+    this.enemies = [new HealthPotion(this, 350 , 180),new Zombie(this,200,100), new NextLevelTrigger(this,1000,400)]
     this.enemyTimer = 0;
     this.enemyInterval = 1000;
     
@@ -35,7 +37,8 @@ export default class Game {
       new Platform(this, 200, 200, 300, 20, true)
     ]
 
-    this.level = new levelOne(this);
+    this.level =[new levelOne(this), new levelTwo(this)] 
+    this.currentLevel = 0;
     
   }
 
@@ -75,7 +78,7 @@ export default class Game {
     })
     this.enemies = this.enemies.filter((enemy) => !enemy.markedForDeletion)
   
-    this.level.platforms.forEach((platform) => {
+    this.level[this.currentLevel].platforms.forEach((platform) => {
       if (this.checkPlatformCollision(this.player, platform)) {
         if (this.player.speedY < 0 && this.player.height/3 + this.player.positionY > platform.positionY  && platform.isSolid){
           this.player.positionY = platform.positionY + platform.height
@@ -102,12 +105,12 @@ export default class Game {
 
   draw(context) {
   //  this.platforms.forEach((platform) => platform.draw(context))
-    this.ui.draw(context)
     this.camera.apply(context); 
-    this.level.draw(context)
+    this.level[this.currentLevel].draw(context)
     this.player.draw(context)
     this.enemies.forEach((enemy) => enemy.draw(context))
     this.camera.reset(context);
+    this.ui.draw(context)
   }
 
   addEnemySlime() {
@@ -142,5 +145,14 @@ export default class Game {
       }
       return false
     }
+  }
+
+  nextLevel(){
+    this.currentLevel++
+    this.enemies  = this.level[this.currentLevel].enemies
+    this.player.positionX = 0;
+    this.player.positionY = 200;
+    if (this.currentLevel > this.level.length)
+      this.currentLevel = 0;
   }
 }

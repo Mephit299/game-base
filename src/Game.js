@@ -25,7 +25,7 @@ export default class Game {
     this.scoreCounter = 0;
 
     
-    this.enemies = [new HealthPotion(this, 350 , 180),new Zombie(this,200,100), new NextLevelTrigger(this,1000,400)]
+    this.enemies = [new HealthPotion(this, 350 , 180),new Zombie(this,300,200), new NextLevelTrigger(this,1000,400)]
     this.enemyTimer = 0;
     this.enemyInterval = 1000;
     

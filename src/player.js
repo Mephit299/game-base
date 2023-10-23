@@ -41,7 +41,7 @@ export default class Player{
 
         if(this.game.keys.includes('ArrowLeft') || this.game.keys.includes('a')){
             this.speedX = -this.maxSpeed;
-            this.direction = -1;
+            this.direction = 0;
         }
         else if(this.game.keys.includes(`ArrowRight`) || this.game.keys.includes('d')){
             this.speedX = this.maxSpeed;
@@ -97,7 +97,7 @@ export default class Player{
     shoot() {
         if(this.ammo > 0 && this.shootTimer <= 0){
             this.projectiles.push(
-            new Projectile(this.game, this.positionX + this.width, this.positionY + this.height / 2)
+            new Projectile(this.game, this.positionX + this.width/2, this.positionY + this.height / 2, this.direction)
             )
             this.ammo--
             this.shootTimer = 500;
@@ -105,7 +105,7 @@ export default class Player{
       }
       strike(){
         if(this.baseballbatTimer <=0){
-            this.projectiles.push(new MeleeAttack(this.game))
+            this.projectiles.push(new MeleeAttack(this.game,this.direction))
         this.baseballbatTimer = 350;
         }
       }

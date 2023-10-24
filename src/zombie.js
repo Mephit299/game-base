@@ -6,6 +6,7 @@ export default class Zombie extends Enemy{
         this.positionX = x;
         this.positionY = y;
         this.stayOnPlatform = true;
+        this.defaultSpeedX = -2;
         this.speedX = -2;
         this.score = 2;
         this.hp = 2;
@@ -16,6 +17,7 @@ export default class Zombie extends Enemy{
     update() {
         if (this.grounded) {
           this.speedY = 0
+          this.speedX = this.defaultSpeedX;
         } else {
           this.speedY += this.game.gravity
         }

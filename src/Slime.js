@@ -7,7 +7,8 @@ export default class Slime extends Enemy{
         this.height = 32;
         this.positionX = this.game.width;
         this.positionY = Math.random() * (this.game.height * 0.9 - this.height);
-        this.speedX = Math.random() * -1.5 - 0.5;
+        this.defaultSpeedX = Math.random() * -1.5 - 0.5;
+        this.speedX = this.defaultSpeedX;
         this.grounded = false
 
     }
@@ -15,6 +16,7 @@ export default class Slime extends Enemy{
     update() {
         if (this.grounded) {
           this.speedY = 0
+          this.speedX = this.defaultSpeedX
         } else {
           this.speedY += this.game.gravity
         }

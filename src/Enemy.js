@@ -1,8 +1,10 @@
 export default class Enemy{
     constructor(game){
+        
         this.game = game;
         this.positionX = 0;
         this.positionY = 0;
+        this.defaultSpeedX = 0;
         this.speedX = 0;
         this.speedY = 0;
         this.markedForDeletion = false;
@@ -11,13 +13,15 @@ export default class Enemy{
         this.hp = 1;
         this.score = 1;
 
-
         this.stayOnPlatform = false;
         this.isCollectable = false;
         this.color = "yellow";
         this.attackId = '';
 
-        this.iFrames = 0;
+        this.knockbackSpeedY = 5;
+        this.knockbackSpeedX = 5;
+
+        
     }
 
     update(){
@@ -42,12 +46,18 @@ export default class Enemy{
     isDead(){
         if (this.hp <= 0) {
             this.markedForDeletion = true;
-            if (this.game.player.iFrames <= 0)
-                this.game.scoreCounter += this.score
+        if (this.game.player.iFrames <= 0)
+            this.game.scoreCounter += this.score
         }
     }
+    knockback(direction){
+        if (direction === 1)
+            this.speedX = this.knockbackSpeedX
+        else this.speedX = -this.knockbackSpeedX;
+        this.speedY = -this.knockbackSpeedY;
+        this.positionY -= 5;
 
-    meleeHit(){ // iframes när fienden blir träffad av en attack, igentligen vill jag ha icd för varje attack.
 
     }
+
 }

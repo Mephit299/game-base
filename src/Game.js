@@ -74,6 +74,7 @@ export default class Game {
           if  (!enemy.attackId.includes(projectile.attackId)){
             enemy.hp -= projectile.damage
             enemy.attackId += projectile.attackId;
+            enemy.knockback(projectile.direction)
 
           }
           if (!projectile.timedAttack)
@@ -98,6 +99,10 @@ export default class Game {
       this.enemies.forEach((enemy) => {
         if (this.checkPlatformCollision(enemy, platform)) {
           enemy.speedY = 0
+          if (enemy.speedX > Math.abs(enemy.defaultSpeedX))
+            enemy.speedX = enemy.defaultSpeedX;
+          if (enemy.speedX < Math.abs(enemy.defaultSpeedX) *-1)
+            enemy.speedX = enemy.defaultSpeedX;
           enemy.positionY = platform.positionY - enemy.height
           if (enemy.stayOnPlatform){
             if (enemy.positionX < platform.positionX && enemy.speedX < 0 || enemy.positionX + enemy.width > platform.positionX + platform.width && enemy.speedX > 0)

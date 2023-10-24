@@ -1,13 +1,14 @@
 import Projectile from "./Projectile";
 import MeleeAttack from "./MeleeAttack";
+import spriteImage from './assets/sprites/player.png';
 
 export default class Player{
     constructor(game){
     this.game = game;
     this.positionX = 200;
     this.positionY = 300;
-    this.width = 50;
-    this.height = 50;
+    this.width = 78;
+    this.height = 58;
     this.hp = 3;
     this.iFrames = 0;
 
@@ -23,6 +24,18 @@ export default class Player{
     this.ammo = 3;
     this.shootTimer = 0;
     this.baseballbatTimer = 0;
+
+    const image = new Image();
+    image.src = spriteImage;
+    this.image = image;
+    this.flip = false;
+
+    this.frameX = 0
+    this.frameY = 1
+    this.maxFrame = 8
+    this.fps = 20
+    this.timer = 0
+    this.interval = 1000 / this.fps
 
     }
 
@@ -60,20 +73,32 @@ export default class Player{
         this.positionY += this.speedY;
         if(this.positionX < 0)
             this.positionX = 0;
-        //if(this.positionX + this.width > this.game.width)
-        //    this.positionX = this.game.width - this.width;
-        //if(this.positionY < 0)
-        //    this.positionY = 0;
-        //if(this.positionY + this.height > this.game.height)
-        //    this.positionY = this.game.height - this.height
-
 
         this.projectiles.forEach((projectile) => {
             projectile.update(deltaTime)
+
         })
             this.projectiles = this.projectiles.filter(
                 (projectile) => !projectile.markedForDeletion
             )
+
+            if (this.speedX < 0) {
+                this.flip = true
+              } else if (this.speedX > 0) {
+                this.flip = false
+              }
+            
+              if (this.timer > this.interval) {
+                this.frameX++
+                this.timer = 0
+              } else {
+                this.timer += deltaTime
+              }
+            
+              // reset frameX when it reaches maxFrame
+              if (this.frameX >= this.maxFrame) {
+                this.frameX = 0
+              }
 
         if(this.shootTimer > 0)
             this.shootTimer -= deltaTime
@@ -86,12 +111,31 @@ export default class Player{
     
 
     draw(context){
+        this.projectiles.forEach((projectile) => {projectile.draw(context)})
         context.fillStyle = "blue"
         context.fillRect(this.positionX,this.positionY,this.width,this.height)
-        if (this.iFrames > 0)
+        if (this.iFrames > 0 || this.game.debug)
             context.strokeRect(this.positionX, this.positionY, this.width, this.height)
 
-        this.projectiles.forEach((projectile) => {projectile.draw(context)})
+        if (this.flip) {
+            context.save()
+            context.scale(-1, 1)
+          }
+      
+          context.drawImage(
+            this.image,
+            this.frameX * this.width,
+            this.frameY * this.height - 14,
+            this.width,
+            this.height,
+            this.flip ? this.positionX * -1 - this.width : this.positionX,
+            this.positionY,
+            this.width,
+            this.height
+          )
+          if(this.flip)
+            context.restore()
+              
     }
 
     shoot() {

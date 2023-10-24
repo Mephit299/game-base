@@ -15,3 +15,5 @@ Se bara vad som blev commitat under lektionen
 Siedescrolling finns nu i spelet och grunder för att kunna gara en banna.
 * 23/10-2023
 man kan byta banna, slå i flera riktningar och lite buggfixing.
+* 24/10-2023
+Fiender har icd, knockback, player sprite (är sämst men fungerar), buggfixing

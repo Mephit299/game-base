@@ -25,7 +25,7 @@ export default class Game {
     this.scoreCounter = 0;
 
     
-    this.enemies = [new HealthPotion(this, 350 , 180),new Zombie(this,200,200), new NextLevelTrigger(this,1000,400)]
+    this.enemies = [new HealthPotion(this, 350 , 280),new Zombie(this,200,200), new NextLevelTrigger(this,1000,400)]
     this.enemyTimer = 0;
     this.enemyInterval = 1000;
     
@@ -168,7 +168,7 @@ export default class Game {
     this.player.positionY = 300;
     this.player.ammo++
     this.player.direction = 1;
-    if (this.player.hp < 5)
+    if (this.player.hp < 5 && !this.gameOver)
       this.player.hp++
     
   }

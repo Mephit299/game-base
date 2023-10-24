@@ -9,6 +9,7 @@ export default class MeleeAttack extends Projectile {
         this.timedAttack = true;
         this.attackTime = 300;
         this.damage = 1;
+        this.attackId = 'pogAttack420';
 
     }
 
@@ -21,8 +22,12 @@ export default class MeleeAttack extends Projectile {
             this.positionY = this.game.player.height / 2 - this.height / 2 + this.game.player.positionY;
         }
         this.attackTime -= deltaTime;
-        if (this.attackTime <= 0)
+        if (this.attackTime <= 0){
             this.markedForDeletion = true;
+            this.game.enemies.forEach(enemy => {
+                enemy.attackId = enemy.attackId.replace(this.attackId,'');
+            });
+        }
     }
 
     draw(context) {

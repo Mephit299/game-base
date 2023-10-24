@@ -106,7 +106,7 @@ export default class Player{
       strike(){
         if(this.baseballbatTimer <=0){
             this.projectiles.push(new MeleeAttack(this.game,this.direction))
-        this.baseballbatTimer = 350;
+        this.baseballbatTimer = 500;
         }
       }
     

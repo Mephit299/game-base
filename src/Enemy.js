@@ -8,11 +8,16 @@ export default class Enemy{
         this.markedForDeletion = false;
         this.width = 50;
         this.height = 40;
+        this.hp = 1;
+        this.score = 1;
+
+
         this.stayOnPlatform = false;
         this.isCollectable = false;
         this.color = "yellow";
-        this.hp = 1;
-        this.score = 1;
+        this.attackId = '';
+
+        this.iFrames = 0;
     }
 
     update(){
@@ -40,5 +45,9 @@ export default class Enemy{
             if (this.game.player.iFrames <= 0)
                 this.game.scoreCounter += this.score
         }
+    }
+
+    meleeHit(){ // iframes när fienden blir träffad av en attack, igentligen vill jag ha icd för varje attack.
+
     }
 }

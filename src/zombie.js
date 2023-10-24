@@ -8,6 +8,8 @@ export default class Zombie extends Enemy{
         this.stayOnPlatform = true;
         this.speedX = -2;
         this.score = 2;
+        this.hp = 2;
+        
         
     }
 

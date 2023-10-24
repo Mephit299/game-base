@@ -14,7 +14,7 @@ export default class NextLevelTrigger extends Enemy{
     }
     pickUp(){ // om man en projektil rör en collectable förstörs den
         if (!this.game.gameOver)
-        this.markedForDeletion = true;
         this.game.nextLevel();
+        this.markedForDeletion = true;
     }
 }

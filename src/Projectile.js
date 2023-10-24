@@ -13,6 +13,7 @@ export default class Projectile{
 
     this.timedAttack = false
     this.attackTime = 0;
+    this.attackId = 69420;
     }
 
     update(deltaTime){

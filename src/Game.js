@@ -25,7 +25,7 @@ export default class Game {
     this.scoreCounter = 0;
 
     
-    this.enemies = [new HealthPotion(this, 350 , 180),new Zombie(this,300,200), new NextLevelTrigger(this,1000,400)]
+    this.enemies = [new HealthPotion(this, 350 , 180),new Zombie(this,200,200), new NextLevelTrigger(this,1000,400)]
     this.enemyTimer = 0;
     this.enemyInterval = 1000;
     
@@ -57,6 +57,8 @@ export default class Game {
     } else this.enemyTimer += deltaTime;
     
     this.enemies.forEach((enemy) => {
+      let trevligt =this.enemies[0].attackId;
+
       enemy.update(deltaTime)
       if (this.checkCollision(this.player, enemy)) {
         if (enemy.isCollectable){enemy.pickUp()}
@@ -69,7 +71,11 @@ export default class Game {
       }
       this.player.projectiles.forEach((projectile) => {
         if (this.checkCollision(projectile, enemy)) {
-          enemy.hp -= projectile.damage
+          if  (!enemy.attackId.includes(projectile.attackId)){
+            enemy.hp -= projectile.damage
+            enemy.attackId += projectile.attackId;
+
+          }
           if (!projectile.timedAttack)
             projectile.markedForDeletion = true
         }
@@ -94,7 +100,7 @@ export default class Game {
           enemy.speedY = 0
           enemy.positionY = platform.positionY - enemy.height
           if (enemy.stayOnPlatform){
-            if (enemy.positionX < platform.positionX || enemy.positionX + enemy.width > platform.positionX + platform.width)
+            if (enemy.positionX < platform.positionX && enemy.speedX < 0 || enemy.positionX + enemy.width > platform.positionX + platform.width && enemy.speedX > 0)
               enemy.speedX *= -1
 
           }
@@ -152,7 +158,7 @@ export default class Game {
     if (this.currentLevel >= this.level.length)
       this.currentLevel = 0;
     this.enemies  = this.level[this.currentLevel].enemies
-    
+
     this.player.positionX = 0;
     this.player.positionY = 300;
     this.player.ammo++

@@ -23,11 +23,6 @@ export default class Game {
     this.player = new Player(this)
     this.gameTime = 0;
     this.scoreCounter = 0;
-
-    
-    this.enemies = [new HealthPotion(this, 350 , 280),new Zombie(this,200,200), new NextLevelTrigger(this,1000,400)]
-    this.enemyTimer = 0;
-    this.enemyInterval = 1000;
     
     this.camera = new Camera(this, this.player.positionX, 0, 0, 100)
     this.ground = this.height - 70;
@@ -39,6 +34,10 @@ export default class Game {
 
     this.level =[new levelOne(this), new levelTwo(this)] 
     this.currentLevel = 0;
+
+    this.enemies = this.level[this.currentLevel].generateEnemies(this.enemies); 
+    this.enemyTimer = 0;
+    this.enemyInterval = 1000;
     
   }
 
@@ -51,13 +50,12 @@ export default class Game {
     this.player.update(deltaTime)
     this.camera.update(this.player)
 
-    if(this.enemyTimer > this.enemyInterval && !this.gameOver){
-      this.addEnemySlime();
-      this.enemyTimer = 0;
-    } else this.enemyTimer += deltaTime;
+    //if(this.enemyTimer > this.enemyInterval && !this.gameOver){
+    //  this.addEnemySlime();
+    //  this.enemyTimer = 0;
+    //} else this.enemyTimer += deltaTime;
     
     this.enemies.forEach((enemy) => {
-      let trevligt =this.enemies[0].attackId;
 
       enemy.update(deltaTime)
       if (this.checkCollision(this.player, enemy)) {
@@ -65,7 +63,7 @@ export default class Game {
         else{
           if (this.player.iFrames <=0)
             this.player.hp--
-          enemy.hp--
+          enemy.playerKnockback(this.player.direction)
           this.player.iFrames = 300;
           }
       }
@@ -162,7 +160,9 @@ export default class Game {
     this.currentLevel++
     if (this.currentLevel >= this.level.length)
       this.currentLevel = 0;
-    this.enemies  = this.level[this.currentLevel].enemies
+    this.enemies = [];
+    this.enemies = this.level[this.currentLevel].generateEnemies(this.enemies)
+    console.log(this.enemies);
 
     this.player.positionX = 0;
     this.player.positionY = 300;

@@ -9,7 +9,7 @@ export default class Zombie extends Enemy{
         this.defaultSpeedX = -2;
         this.speedX = -2;
         this.score = 2;
-        this.hp = 2;
+        this.hp = 3;
         
         
     }
@@ -21,9 +21,10 @@ export default class Zombie extends Enemy{
         } else {
           this.speedY += this.game.gravity
         }
-    
+        if (this.game.player.positionX + this.game.width/2 + 50 > this.positionX || this.game.width +50 > this.positionX){
         this.positionY += this.speedY
         this.positionX += this.speedX
-        if (this.positionX < 0) this.markedForDeletion = true
+        }
+        if (this.positionX + this.width < 0) this.markedForDeletion = true
       }
 }

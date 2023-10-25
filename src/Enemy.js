@@ -26,7 +26,7 @@ export default class Enemy{
 
     update(){
         this.positionX += this.speedX;
-        if (this.positionX < 0) this.markedForDeletion = true
+        if (this.positionX + this.width < 0) this.markedForDeletion = true
     }
 
     draw(context){
@@ -56,8 +56,18 @@ export default class Enemy{
         else this.speedX = -this.knockbackSpeedX;
         this.speedY = -this.knockbackSpeedY;
         this.positionY -= 5;
-
-
+    }
+    playerKnockback(direction){
+        if (direction === 1){
+            this.speedX = this.knockbackSpeedX
+            this.positionX += 10
+        }
+        else{
+            this.speedX = -this.knockbackSpeedX;
+            this.positionX -= 10;
+        } 
+        this.speedY = -this.knockbackSpeedY;
+        this.positionY -= 5;
     }
 
 }

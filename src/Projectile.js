@@ -22,6 +22,9 @@ export default class Projectile{
         else this.positionX -= this.speed
         if (this.positionX > this.game.camera.x + this.game.width)
             this.markedForDeletion = true
+            this.game.enemies.forEach(enemy => {
+                enemy.attackId = enemy.attackId.replace(this.attackId,'');
+            });
     }
 
     draw(context){

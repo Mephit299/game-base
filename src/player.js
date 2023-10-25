@@ -15,7 +15,7 @@ export default class Player{
     this.speedX = 0;
     this.speedY = 0;
     this.maxSpeed = 5;
-    this.jumpSpeed = 10
+    this.jumpSpeed = 9.5;
     this.grounded = false;
     this.coyoteFrames = 0;
     this.direction = 1;
@@ -41,7 +41,7 @@ export default class Player{
 
     update(deltaTime){
         if (this.grounded)
-            this.coyoteFrames = 3;
+            this.coyoteFrames = 5;
         else this.coyoteFrames--
 
         if(this.game.keys.includes('ArrowUp') && this.grounded || this.game.keys.includes('w') && this.coyoteFrames > 0 || this.game.keys.includes('ArrowUp') && this.coyoteFrames > 0 || this.game.keys.includes('w') && this.grounded){
@@ -112,8 +112,8 @@ export default class Player{
 
     draw(context){
         this.projectiles.forEach((projectile) => {projectile.draw(context)})
-        context.fillStyle = "blue"
-        context.fillRect(this.positionX,this.positionY,this.width,this.height)
+        //context.fillStyle = "blue"
+        //context.fillRect(this.positionX,this.positionY,this.width,this.height)
         if (this.iFrames > 0 || this.game.debug)
             context.strokeRect(this.positionX, this.positionY, this.width, this.height)
 
@@ -124,14 +124,14 @@ export default class Player{
       
           context.drawImage(
             this.image,
-            this.frameX * this.width,
-            this.frameY * this.height - 14,
+            this.frameX * this.width+4,
+            this.frameY * this.height +12,
             this.width,
             this.height,
             this.flip ? this.positionX * -1 - this.width : this.positionX,
             this.positionY,
-            this.width,
-            this.height
+            this.width + 50,
+            this.height + 50
           )
           if(this.flip)
             context.restore()

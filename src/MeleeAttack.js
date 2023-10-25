@@ -4,8 +4,8 @@ import Projectile from "./Projectile";
 export default class MeleeAttack extends Projectile {
     constructor(game, direction) {
         super(game, 0, 0, direction);
-        this.width = 50;
-        this.height = 30;
+        this.width = 70;
+        this.height = 40;
         this.timedAttack = true;
         this.attackTime = 300;
         this.damage = 1;

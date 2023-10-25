@@ -10,6 +10,7 @@ export default class Slime extends Enemy{
         this.defaultSpeedX = Math.random() * -1.5 - 0.5;
         this.speedX = this.defaultSpeedX;
         this.grounded = false
+        this.hp = 2;
 
     }
 

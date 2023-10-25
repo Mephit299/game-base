@@ -17,4 +17,5 @@ export default class NextLevelTrigger extends Enemy{
         this.game.nextLevel();
         this.markedForDeletion = true;
     }
+    knockback(){}
 }

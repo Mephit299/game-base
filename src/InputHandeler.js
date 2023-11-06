@@ -1,7 +1,11 @@
+
+
 export default class InputHandler {
     constructor(game) {
         this.shootTimer = 0;
         this.game = game
+        this.secret = '';
+        this.awnser = 'ArrowUpArrowUpArrowDownArrowDownArrowLeftArrowRightArrowLeftArrowRightba';
         window.addEventListener('keydown', (event) => {
             console.log(event.key)
             if (
@@ -17,7 +21,12 @@ export default class InputHandler {
             ) {
               this.game.keys.push(event.key)
             }
-
+            this.secret += event.key
+            if (this.secret.includes(this.awnser)){
+              this.game.player.hasGun = true;
+            }
+            if (this.secret.length >1000)
+              this.secret =''
 
               if (event.key === 'x') {
                 this.game.player.shoot()

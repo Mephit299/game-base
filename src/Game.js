@@ -9,6 +9,7 @@ import Camera from "./Camera"
 import levelOne from "./levels/LevelOne"
 import levelTwo from "./levels/LevelTwo"
 import NextLevelTrigger from "./NextLevelTrigger"
+import Background from "./bakgrund"
 
 export default class Game {
   constructor(width, height) {
@@ -34,6 +35,7 @@ export default class Game {
 
     this.level =[new levelOne(this), new levelTwo(this)] 
     this.currentLevel = 0;
+    this.background = new Background(this);
 
     this.enemies = this.level[this.currentLevel].generateEnemies(this.enemies); 
     this.enemyTimer = 0;
@@ -63,7 +65,7 @@ export default class Game {
         else{
           if (this.player.iFrames <=0)
             this.player.hp--
-          enemy.playerKnockback(this.player.direction)
+          enemy.playerKnockback()
           this.player.iFrames = 300;
           }
       }
@@ -115,6 +117,7 @@ export default class Game {
   draw(context) {
   //  this.platforms.forEach((platform) => platform.draw(context))
     this.camera.apply(context); 
+    this.background.draw(context)
     this.level[this.currentLevel].draw(context)
     this.player.draw(context)
     this.enemies.forEach((enemy) => enemy.draw(context))
@@ -166,10 +169,12 @@ export default class Game {
 
     this.player.positionX = 0;
     this.player.positionY = 300;
-    this.player.ammo++
+    if (this.player.ammo < 5)
+      this.player.ammo++
     this.player.direction = 1;
-    if (this.player.hp < 5 && !this.gameOver)
-      this.player.hp++
+   // if (this.player.hp < 5 && !this.gameOver)
+   //   this.player.hp++
+   this.player.flip = false
     
   }
 }

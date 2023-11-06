@@ -10,9 +10,9 @@ export default class levelOne extends Map {
         this.game = game;
 
         this.addPlatform(new Platform(game, -100, 430, 4000, 70, true))
-        this.addPlatform(new Platform(game, 540, 280, 200, 20, true))
-        this.addPlatform(new Platform(game, 200, 280, 200, 20, true))
-        this.addPlatform(new Platform(game, 300, 160, 200, 20, true))
+        this.addPlatform(new Platform(game, 540, 300, 200, 20, true))
+        this.addPlatform(new Platform(game, 200, 300, 200, 20, true))
+        this.addPlatform(new Platform(game, 300, 180, 200, 20, true))
         this.enemies = []
     }
     generateEnemies(enemies){

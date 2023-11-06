@@ -20,6 +20,7 @@ export default class UserInterface{
         context.fillText(`HP: ${this.game.player.hp}`, 20, 50)
         context.fillText(`Time: ${(this.game.gameTime * 0.001).toFixed(1)}`, 20, 80)
         context.fillText(`Score: ${this.game.scoreCounter}`, 20, 110)
+        
 
         if (this.game.gameOver) {
             context.textAlign = 'center'
@@ -52,6 +53,13 @@ export default class UserInterface{
                 125
             )
             context.fillText(`keys: ${this.game.keys}`, this.game.width - 20, 150)
+        }
+        if (this.game.player.hasGun){
+            context.fillStyle = "brown"
+            for (let i = 0; i < this.game.player.ammo; i++) {
+                let curentBullet = 150 + i*10
+                context.fillRect(curentBullet,30,5,15)
+            }
         }
 
         context.restore()

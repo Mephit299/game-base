@@ -14,7 +14,9 @@ export default class HealthPotion extends Enemy{
     }
     pickUp(){ // om man en projektil rör en collectable förstörs den
         if (!this.game.gameOver)
-        this.game.player.hp++
+        if (this.game.player.hp <5)
+            this.game.player.hp++
+        else this.game.scoreCounter += 4;
         this.markedForDeletion = true;
     }
     knockback(){}

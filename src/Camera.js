@@ -15,7 +15,7 @@ export default class Camera {
         const halfWidth = this.width / 2
         const halfHeight = this.height / 2
         const maxX = this.game.level[this.game.currentLevel].width
-        const maxY = this.game.level[this.game.currentLevel].height
+        //const maxY = this.game.level[this.game.currentLevel].height
   
         let targetX = Math.min(Math.max(player.positionX - halfWidth, this.minX), maxX)
         //let targetY = Math.min(Math.max(player.y - halfHeight, this.minY), maxY)
@@ -24,9 +24,12 @@ export default class Camera {
         let targetY = player.positionY - halfHeight
   
         this.x += (targetX - this.x) * this.lerpFactor
-        if (player.positionY <  this.game.height/2)
+        //if (player.positionY <  this.game.height/2)
             this.y += (targetY - this.y) * this.lerpFactor
-        else this.y = 0;
+        //else this.y = 0;
+        if (this.y > 0)
+          this.y = 0;
+        
     }
   
     apply(context) {

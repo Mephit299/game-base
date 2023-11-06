@@ -1,14 +1,14 @@
 import Projectile from "./Projectile";
 import MeleeAttack from "./MeleeAttack";
-import spriteImage from './assets/sprites/player.png';
+import spriteImage from './assets/sprites/Sprites_x2.png';
 
 export default class Player{
     constructor(game){
     this.game = game;
-    this.positionX = 200;
+    this.positionX = 50;
     this.positionY = 300;
-    this.width = 78;
-    this.height = 58;
+    this.width = 64;
+    this.height = 64;
     this.hp = 3;
     this.iFrames = 0;
 
@@ -20,6 +20,7 @@ export default class Player{
     this.coyoteFrames = 0;
     this.direction = 1;
 
+    this.hasGun = false;
     this.projectiles = [];
     this.ammo = 3;
     this.shootTimer = 0;
@@ -31,9 +32,9 @@ export default class Player{
     this.flip = false;
 
     this.frameX = 0
-    this.frameY = 1
-    this.maxFrame = 8
-    this.fps = 20
+    this.frameY = 0
+    this.maxFrame = 4
+    this.fps = 5
     this.timer = 0
     this.interval = 1000 / this.fps
 
@@ -124,14 +125,14 @@ export default class Player{
       
           context.drawImage(
             this.image,
-            this.frameX * this.width+4,
-            this.frameY * this.height +12,
+            this.frameX * this.width,
+            this.frameY * this.height,
             this.width,
             this.height,
             this.flip ? this.positionX * -1 - this.width : this.positionX,
             this.positionY,
-            this.width + 50,
-            this.height + 50
+            this.width,
+            this.height
           )
           if(this.flip)
             context.restore()
@@ -139,7 +140,7 @@ export default class Player{
     }
 
     shoot() {
-        if(this.ammo > 0 && this.shootTimer <= 0){
+        if(this.ammo > 0 && this.shootTimer <= 0 && this.hasGun){
             this.projectiles.push(
             new Projectile(this.game, this.positionX + this.width/2, this.positionY + this.height / 2, this.direction)
             )

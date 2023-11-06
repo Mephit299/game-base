@@ -10,7 +10,7 @@ export default class levelTwo extends Map {
         this.game = game;
 
         this.addPlatform(new Platform(game, -100, 430, 4000, 70, true))
-        this.addPlatform(new Platform(game, 300, 280, 200, 20, true))
+        this.addPlatform(new Platform(game, 300, 300, 200, 20, true))
         this.addPlatform(new Platform(game, 660, 180, 200, 20, true))
        // this.addPlatform(new Platform(game, 300, 300, 200, 20, true))
         //this.enemies = [new Zombie(game,700,400),

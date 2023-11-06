@@ -57,8 +57,8 @@ export default class Enemy{
         this.speedY = -this.knockbackSpeedY;
         this.positionY -= 5;
     }
-    playerKnockback(direction){
-        if (direction === 1){
+    playerKnockback(){
+        if (this.game.player.positionX + 5 < this.positionX){
             this.speedX = this.knockbackSpeedX
             this.positionX += 10
         }

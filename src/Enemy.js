@@ -13,6 +13,13 @@ export default class Enemy{
         this.hp = 1;
         this.score = 1;
 
+        this.hitboxYMagicNumber = 0;
+        this.hitboxXMagicNumber = 0;
+        this.hitboxX = this.positionX + this.hitboxXMagicNumber;
+        this.hitboxY = this.positionY + this.hitboxYMagicNumber;
+        this.hitboxWidth = this.width - this.hitboxXMagicNumber*2;
+        this.hitboxHeight = this.height - this.hitboxYMagicNumber;
+
         this.stayOnPlatform = false;
         this.isCollectable = false;
         this.color = "yellow";
@@ -56,18 +63,22 @@ export default class Enemy{
         else this.speedX = -this.knockbackSpeedX;
         this.speedY = -this.knockbackSpeedY;
         this.positionY -= 5;
+        this.hitboxY -= 5;
     }
     playerKnockback(){
         if (this.game.player.positionX + 5 < this.positionX){
             this.speedX = this.knockbackSpeedX
             this.positionX += 10
+            this.hitboxX += 10
         }
         else{
             this.speedX = -this.knockbackSpeedX;
             this.positionX -= 10;
+            this.hitboxX -= 10
         } 
         this.speedY = -this.knockbackSpeedY;
         this.positionY -= 5;
+        this.hitboxY -= 5;
     }
 
 }

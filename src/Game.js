@@ -131,19 +131,19 @@ export default class Game {
 
   checkCollision(object1, object2) {
     return (
-      object1.positionX < object2.positionX + object2.width &&
-      object1.positionX + object1.width > object2.positionX &&
-      object1.positionY < object2.positionY + object2.height &&
-      object1.height + object1.positionY > object2.positionY
+      object1.hitboxX < object2.hitboxX + object2.hitboxWidth &&
+      object1.hitboxX + object1.hitboxWidth > object2.hitboxX &&
+      object1.hitboxY < object2.hitboxY + object2.hitboxHeight &&
+      object1.hitboxHeight + object1.hitboxY > object2.hitboxY
     )
   }
 
   checkPlatformCollision(object, platform) {
     if (
-      object.positionY + object.height >= platform.positionY &&
-      object.positionY < platform.positionY + platform.height &&
-      object.positionX + object.width >= platform.positionX &&
-      object.positionX <= platform.positionX + platform.width
+      object.hitboxY + object.hitboxHeight >= platform.positionY &&
+      object.hitboxY < platform.positionY + platform.height &&
+      object.hitboxX + object.hitboxWidth >= platform.positionX &&
+      object.hitboxX <= platform.positionX + platform.width
     ) { 
       if (object.grounded && object.positionY + object.height > platform.positionY) {
         object.speedY = 0

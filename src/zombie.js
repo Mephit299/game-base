@@ -24,6 +24,8 @@ export default class Zombie extends Enemy{
         if (this.game.player.positionX + this.game.width/2 + 50 > this.positionX || this.game.width +50 > this.positionX){
         this.positionY += this.speedY
         this.positionX += this.speedX
+        this.hitboxX = this.positionX + this.hitboxXMagicNumber;
+        this.hitboxY = this.positionY + this.hitboxYMagicNumber;
         }
         if (this.positionX + this.width < 0) this.markedForDeletion = true
       }

@@ -1,6 +1,6 @@
 import Projectile from "./Projectile";
 import MeleeAttack from "./MeleeAttack";
-import spriteImage from './assets/sprites/Sprites_x2.png';
+import spriteImage from './assets/sprites/Sprites_botten_av_rutorna.png';
 
 export default class Player{
     constructor(game){
@@ -11,6 +11,13 @@ export default class Player{
     this.height = 64;
     this.hp = 3;
     this.iFrames = 0;
+    
+    this.hitboxYMagicNumber = 7;
+    this.hitboxXMagicNumber = 14;
+    this.hitboxX = this.positionX + this.hitboxXMagicNumber;
+    this.hitboxY = this.positionY + this.hitboxYMagicNumber;
+    this.hitboxWidth = this.width - this.hitboxXMagicNumber*2;
+    this.hitboxHeight = this.height - this.hitboxYMagicNumber;
 
     this.speedX = 0;
     this.speedY = 0;
@@ -24,7 +31,7 @@ export default class Player{
     this.projectiles = [];
     this.ammo = 3;
     this.shootTimer = 0;
-    this.baseballbatTimer = 0;
+    this.fistAttackTimer = 0;
 
     const image = new Image();
     image.src = spriteImage;
@@ -34,9 +41,22 @@ export default class Player{
     this.frameX = 0
     this.frameY = 0
     this.maxFrame = 4
-    this.fps = 5
+    this.fps = 12
     this.timer = 0
     this.interval = 1000 / this.fps
+
+    this.idelmaxFrame = 1;
+    this.idelFrameY = 0;
+
+    this.runningMaxFrame = 4;
+    this.runningFrameY = 0;
+
+    this.jumpingMaxFrame = 6;
+    this.jumpingFrameY = 1;
+    this.jummping = false;
+
+    this.attackMaxFrame = 4;
+    this.attackFrameY = 2;
 
     }
 
@@ -45,38 +65,57 @@ export default class Player{
             this.coyoteFrames = 5;
         else this.coyoteFrames--
 
-        if(this.game.keys.includes('ArrowUp') && this.grounded || this.game.keys.includes('w') && this.coyoteFrames > 0 || this.game.keys.includes('ArrowUp') && this.coyoteFrames > 0 || this.game.keys.includes('w') && this.grounded){
-            this.speedY = -this.jumpSpeed;
-            this.grounded = false;
-        }  
-    //    else if(this.game.keys.includes('ArrowDown') || this.game.keys.includes('s')) 
-    //    this.speedY = this.maxSpeed;
-    //    else    this.speedY = 0;
-
         if(this.game.keys.includes('ArrowLeft') || this.game.keys.includes('a')){
             this.speedX = -this.maxSpeed;
             this.direction = 0;
+            this.maxFrame = this.runningMaxFrame;
+            this.frameY = this.runningFrameY;
         }
         else if(this.game.keys.includes(`ArrowRight`) || this.game.keys.includes('d')){
             this.speedX = this.maxSpeed;
             this.direction = 1;
+            this.maxFrame = this.runningMaxFrame;
+            this.frameY = this.runningFrameY;
         }
-        else    this.speedX = 0;
+        else{
+            this.speedX = 0;
+            if(this.grounded){
+                this.maxFrame = this.idelmaxFrame;
+                this.frameY = 0;
+            } 
+        }   
+        if(this.game.keys.includes('ArrowUp') && this.grounded || this.game.keys.includes('w') && this.coyoteFrames > 0 || this.game.keys.includes('ArrowUp') && this.coyoteFrames > 0 || this.game.keys.includes('w') && this.grounded){
+            this.speedY = -this.jumpSpeed;
+            this.grounded = false;
+            this.maxFrame = this.jumpingMaxFrame;
+            this.frameY = this.jumpingFrameY;
+            this.jummping = true;
+        } 
 
         if (this.grounded) {
             this.speedY = 0
+            this.jummping = false;
           } else {
             this.speedY += this.game.gravity
           }
-
-          
+          if (this.jummping){
+            this.maxFrame = this.jumpingMaxFrame;
+            this.frameY = this.jumpingFrameY;
+          }
+           
         this.positionX += this.speedX;
         this.positionY += this.speedY;
-        if(this.positionX < 0)
-            this.positionX = 0;
+        this.hitboxX = this.positionX + this.hitboxXMagicNumber;
+        this.hitboxY = this.positionY + this.hitboxYMagicNumber;
+        
 
         this.projectiles.forEach((projectile) => {
             projectile.update(deltaTime)
+            if (projectile.meleeAttack){
+                this.maxFrame = this.attackMaxFrame;
+                this.frameY = this.attackFrameY;
+            }
+
 
         })
             this.projectiles = this.projectiles.filter(
@@ -103,8 +142,8 @@ export default class Player{
 
         if(this.shootTimer > 0)
             this.shootTimer -= deltaTime
-        if(this.baseballbatTimer > 0)
-            this.baseballbatTimer -= deltaTime
+        if(this.fistAttackTimer > 0)
+            this.fistAttackTimer -= deltaTime
 
         if (this.iFrames > 0)
             this.iFrames -= deltaTime;
@@ -115,8 +154,6 @@ export default class Player{
         this.projectiles.forEach((projectile) => {projectile.draw(context)})
         //context.fillStyle = "blue"
         //context.fillRect(this.positionX,this.positionY,this.width,this.height)
-        if (this.iFrames > 0 || this.game.debug)
-            context.strokeRect(this.positionX, this.positionY, this.width, this.height)
 
         if (this.flip) {
             context.save()
@@ -136,6 +173,10 @@ export default class Player{
           )
           if(this.flip)
             context.restore()
+            if (this.game.debug){
+                context.strokeRect(this.positionX, this.positionY, this.width, this.height)
+                context.strokeRect(this.hitboxX,this.hitboxY,this.hitboxWidth,this.hitboxHeight)
+            }
               
     }
 
@@ -149,9 +190,11 @@ export default class Player{
         } 
       }
       strike(){
-        if(this.baseballbatTimer <=0){
+        if(this.fistAttackTimer <=0){
             this.projectiles.push(new MeleeAttack(this.game,this.direction))
-        this.baseballbatTimer = 500;
+            this.fistAttackTimer = 500;
+            this.frameX = 0;
+            this.timer = 0;
         }
       }
     

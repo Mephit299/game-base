@@ -7,6 +7,13 @@ export default class Projectile{
     this.positionY = y
     this.direction = direction
 
+    this.hitboxYMagicNumber = 0;
+    this.hitboxXMagicNumber = 0;
+    this.hitboxX = this.positionX + this.hitboxXMagicNumber;
+    this.hitboxY = this.positionY + this.hitboxYMagicNumber;
+    this.hitboxWidth = this.width - this.hitboxXMagicNumber*2;
+    this.hitboxHeight = this.height - this.hitboxYMagicNumber;
+
     this.speed = 5
     this.damage = 99
     this.markedForDeletion = false
@@ -22,6 +29,8 @@ export default class Projectile{
         else this.positionX -= this.speed
         if (this.positionX > this.game.camera.x + this.game.width)
             this.markedForDeletion = true
+            this.hitboxX = this.positionX + this.hitboxXMagicNumber;
+            this.hitboxY = this.positionY + this.hitboxYMagicNumber;
             this.game.enemies.forEach(enemy => {
                 enemy.attackId = enemy.attackId.replace(this.attackId,'');
             });

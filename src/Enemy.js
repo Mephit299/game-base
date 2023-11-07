@@ -1,3 +1,5 @@
+import spriteImage from './assets/sprites/Sprites_botten_av_rutorna.png';
+
 export default class Enemy{
     constructor(game){
         
@@ -8,10 +10,11 @@ export default class Enemy{
         this.speedX = 0;
         this.speedY = 0;
         this.markedForDeletion = false;
-        this.width = 50;
-        this.height = 40;
+        this.width = 64;
+        this.height = 64;
         this.hp = 1;
         this.score = 1;
+        this.originClass = true
 
         this.hitboxYMagicNumber = 0;
         this.hitboxXMagicNumber = 0;
@@ -28,17 +31,83 @@ export default class Enemy{
         this.knockbackSpeedY = 5;
         this.knockbackSpeedX = 5;
 
+        const image = new Image();
+        image.src = spriteImage;
+        this.image = image;
+        this.flip = false;
+
+        this.frameX = 0
+        this.frameY = 5
+        this.maxFrame = 4
+        this.fps = 12
+        this.timer = 0
+        this.interval = 1000 / this.fps
+
+        this.idelmaxFrame = 1;
+        this.idelFrameY = 5;
+
+        this.runningMaxFrame = 4;
+        this.runningFrameY = 5;
+
+        this.takesDamageFrame = 3;
+        this.takesDamageFrameY = 6;
+
         
     }
 
-    update(){
-        this.positionX += this.speedX;
-        if (this.positionX + this.width < 0) this.markedForDeletion = true
+    update(deltaTime){
+        if (this.originClass){
+            this.positionX += this.speedX;
+            if (this.positionX + this.width < 0) this.markedForDeletion = true
+        }
+        
+        if (this.speedX < 0) {
+            this.flip = true
+          } else if (this.speedX > 0) {
+            this.flip = false
+          }
+        
+          if (this.timer > this.interval) {
+            this.frameX++
+            this.timer = 0
+          } else {
+            this.timer += deltaTime
+          }
+        
+          // reset frameX when it reaches maxFrame
+          if (this.frameX >= this.maxFrame) {
+            this.frameX = 0
+          }
     }
+    
 
     draw(context){
-        context.fillStyle = this.color;
-        context.fillRect(this.positionX,this.positionY,this.width,this.height)
+        //context.fillStyle = this.color;
+        //context.fillRect(this.positionX,this.positionY,this.width,this.height)
+
+        if (this.flip) {
+            context.save()
+            context.scale(-1, 1)
+          }
+      
+          context.drawImage(
+            this.image,
+            this.frameX * this.width,
+            this.frameY * this.height,
+            this.width,
+            this.height,
+            this.flip ? this.positionX * -1 - this.width : this.positionX,
+            this.positionY,
+            this.width,
+            this.height
+          )
+          if(this.flip)
+            context.restore()
+            if (this.game.debug){
+                context.strokeRect(this.positionX, this.positionY, this.width, this.height)
+                context.strokeRect(this.hitboxX,this.hitboxY,this.hitboxWidth,this.hitboxHeight)
+            }
+              
 
         if (this.game.debug) {
             context.strokeRect(this.positionX, this.positionY, this.width, this.height)
@@ -79,6 +148,16 @@ export default class Enemy{
         this.speedY = -this.knockbackSpeedY;
         this.positionY -= 5;
         this.hitboxY -= 5;
+    }
+
+    adjustHitbox(x, y){
+        this.hitboxYMagicNumber = y;
+        this.hitboxXMagicNumber = x;
+        this.hitboxX = this.positionX + this.hitboxXMagicNumber;
+        this.hitboxY = this.positionY + this.hitboxYMagicNumber;
+        this.hitboxWidth = this.width - this.hitboxXMagicNumber*2;
+        this.hitboxHeight = this.height - this.hitboxYMagicNumber;
+        
     }
 
 }

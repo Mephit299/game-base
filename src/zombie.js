@@ -10,11 +10,14 @@ export default class Zombie extends Enemy{
         this.speedX = -2;
         this.score = 2;
         this.hp = 3;
+        this.originClass = false;
+        super.adjustHitbox(16,10)
         
         
     }
 
-    update() {
+    update(deltaTime) {
+      super.update(deltaTime)
         if (this.grounded) {
           this.speedY = 0
           this.speedX = this.defaultSpeedX;

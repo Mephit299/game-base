@@ -6,10 +6,10 @@
 * Vad jag tänker göra är att implementera sprites, uttväckling av vad powerups kan göra, uppdatera fiender och göra bannor.
 
 ## Arbeta med att implementera sprites. 
-* Arbetar med player så att player sprite har en idel/running/jumping/attacking animation.
-* Göra en player hitbox som blir bättre med hur spritsen ser ut och när man kan ta skada.
-* Arbeta med fiener så att de kan ha och använda sprites.
-* powerups så att de ät en static image istället för en rektangel.
+* Arbetar med player så att player sprite har en idel/running/jumping/attacking animation. *
+* Göra en player hitbox som blir bättre med hur spritsen ser ut och när man kan ta skada. *
+* Arbeta med fiener så att de kan ha och använda sprites. *
+* powerups så att de ät en static image istället för en rektangel. *
 
 ## Man kan starta om om man dör
 * reseta player stats, seacrets och saker.

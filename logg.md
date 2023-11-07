@@ -17,3 +17,7 @@ Siedescrolling finns nu i spelet och grunder för att kunna gara en banna.
 man kan byta banna, slå i flera riktningar och lite buggfixing.
 * 24/10-2023
 Fiender har icd, knockback, player sprite (är sämst men fungerar), buggfixing
+* 06/11-2023
+planering
+* 06/11-2023
+Jag har implementerat sprites och gjort klart kategori 1 av planeringen/prioritetslistan. 

@@ -1,21 +1,16 @@
-import Enemy from "./Enemy";
+import Collectable from "./Collectable";
 
-export default class NextLevelTrigger extends Enemy{
+
+export default class NextLevelTrigger extends Collectable{
     constructor(game,x,y){
-        super(game)
-        this.isCollectable = true;
-        this.positionX = x;
-        this.positionY = y;
-        this.width = 20;
-        this.height = 30;
+        super(game, x, y, 20, 30)
         this.color = "orange"
-        this.score = 0;
         this.hp = 999999;
     }
+
     pickUp(){ // om man en projektil rör en collectable förstörs den
         if (!this.game.gameOver)
         this.game.nextLevel();
         this.markedForDeletion = true;
     }
-    knockback(){}
 }

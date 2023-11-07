@@ -1,23 +1,16 @@
-import Enemy from "./Enemy";
+import Collectable from "./Collectable";
 
-export default class HealthPotion extends Enemy{
+export default class HealthPotion extends Collectable{
     constructor(game,x,y){
-        super(game)
-        this.isCollectable = true;
-        this.positionX = x;
-        this.positionY = y;
-        this.width = 20;
-        this.height = 30;
+        super(game, x, y, 64, 64)
         this.color = "red"
-        this.score = 0;
-        this.hp = 3;
     }
-    pickUp(){ // om man en projektil rör en collectable förstörs den
+    
+    pickUp(){ 
         if (!this.game.gameOver)
         if (this.game.player.hp <5)
             this.game.player.hp++
         else this.game.scoreCounter += 4;
         this.markedForDeletion = true;
     }
-    knockback(){}
 }

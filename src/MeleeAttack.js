@@ -4,7 +4,7 @@ import Projectile from "./Projectile";
 export default class MeleeAttack extends Projectile {
     constructor(game, direction) {
         super(game, 0, 0, direction);
-        this.width = 40;
+        this.width = 20;
         this.height = 40;
         this.timedAttack = true;
         this.attackTime = 400;
@@ -43,6 +43,7 @@ export default class MeleeAttack extends Projectile {
 
     draw(context) {
         context.fillStyle = "red"
+        if (this.game.debug)
         context.fillRect(this.positionX, this.positionY, this.width, this.height)
     }
 }

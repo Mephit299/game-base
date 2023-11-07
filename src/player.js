@@ -192,7 +192,7 @@ export default class Player{
       strike(){
         if(this.fistAttackTimer <=0){
             this.projectiles.push(new MeleeAttack(this.game,this.direction))
-            this.fistAttackTimer = 500;
+            this.fistAttackTimer = 600;
             this.frameX = 0;
             this.timer = 0;
         }

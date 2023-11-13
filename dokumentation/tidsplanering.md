@@ -12,14 +12,14 @@
 * powerups så att de ät en static image istället för en rektangel. *
 
 ## Man kan starta om om man dör
-* reseta player stats, seacrets och saker.
-* ladda om så att det är banna 1.
+* reseta player stats, seacrets och saker. *
+* ladda om så att det är banna 1. *
 * Implementera någon väg att pausa spelet. *
-* titlescreen (ska också förklara hur spelet fungerar) typ
+* titlescreen (ska också förklara hur spelet fungerar) typ gjort
 
 ## Göra bannor
 * Decigna bannor så att de är spelbara och fungerar. 
-* De ska ha en bakgrund och mark som ritade för mina sprites för bakgrunder
+* De ska ha en bakgrund och mark som ritade för mina sprites för bakgrunder  
 * Platformar, fiender och powerupps på lämliga ställen. 
 * lämpliga platser för att gå till nästa banna.
 

@@ -25,14 +25,12 @@ export default class UserInterface{
         if (this.game.gameOver) {
             context.textAlign = 'center'
             context.font = `50px ${this.fontFamily}`
-            context.fillText(
-              'Game over',
-              this.game.width / 2,
-              this.game.height / 2 - 20
-            )
+            context.fillText('Game over', this.game.width / 2, this.game.height / 2 - 20)
+            context.font = `30px ${this.fontFamily}`
+            context.fillText('Press r to restart', this.game.width / 2, this.game.height / 2 +20)
           }
 
-          if (this.game.pause){
+          if (this.game.pause && !this.game.gameOver){
             context.fillStyle = this.color;
             context.font = `70px ${this.fontFamily}`
             context.fillText('Pause', 320, 100)

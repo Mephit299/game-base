@@ -37,6 +37,10 @@ export default class InputHandler {
               if (event.key === 'Escape')
                 this.game.pause = !this.game.pause
 
+              if (event.key === 'r' && this.game.gameOver){
+                this.game.resetGame();
+              }
+
 
             if (event.key === 'p') {
               this.game.debug = !this.game.debug

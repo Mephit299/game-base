@@ -6,7 +6,7 @@ export default class Player {
     constructor(game) {
         this.game = game;
         this.positionX = 50;
-        this.positionY = 300;
+        this.positionY = 365;
         this.width = 64;
         this.height = 64;
         this.hp = 3;

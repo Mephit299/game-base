@@ -37,20 +37,17 @@ export default class Enemy{
         this.flip = false;
 
         this.frameX = 0
-        this.frameY = 5
+        this.frameY = 3
         this.maxFrame = 4
         this.fps = 12
         this.timer = 0
         this.interval = 1000 / this.fps
 
-        this.idelmaxFrame = 1;
-        this.idelFrameY = 5;
-
         this.runningMaxFrame = 4;
-        this.runningFrameY = 5;
+        this.runningFrameY = 3;
 
-        this.takesDamageFrame = 3;
-        this.takesDamageFrameY = 6;
+        this.takesDamageMaxFrame = 3;
+        this.takesDamageFrameY = 4;
 
         
     }
@@ -158,6 +155,15 @@ export default class Enemy{
         this.hitboxWidth = this.width - this.hitboxXMagicNumber*2;
         this.hitboxHeight = this.height - this.hitboxYMagicNumber;
         
+    }
+
+    changeSprite(y, my, dy, dmy){
+        this.frameY = y;
+        this.maxFrame = my;
+        this.runningFrameY = y;
+        this.runningMaxFrame = my;
+        this.takesDamageFrameY = dy
+        this.takesDamageMaxFrame =dmy;
     }
 
 }

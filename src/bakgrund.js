@@ -21,10 +21,16 @@ export default class Background{
         this.height = 128;
 
     }
+
+    drawBackground(context){
+        context.drawImage(this.background,  0, -50, this.width *4, this.height *4)
+    }
+
     draw(context){
-        context.drawImage(this.background,  0, 0)
-        context.drawImage(this.middleground,  0, 0)
-        context.drawImage(this.foregorund,  0, 0)
+        context.drawImage(this.background,  0, -50, this.width *4, this.height *4)
+        context.drawImage(this.middleground,  0, 230, this.width *2, this.height *2)
+        context.drawImage(this.middleground,  800, 230, this.width *2, this.height *2)
+        context.drawImage(this.foregorund,  0, 0, this.width * 4, this.height *4)
 
     }
 

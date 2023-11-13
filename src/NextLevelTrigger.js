@@ -3,7 +3,7 @@ import Collectable from "./Collectable";
 
 export default class NextLevelTrigger extends Collectable{
     constructor(game,x,y){
-        super(game, x, y, 20, 30)
+        super(game, x, y, 64, 64)
         this.color = "orange"
         this.hp = 999999;
     }

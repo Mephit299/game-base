@@ -14,8 +14,8 @@
 ## Man kan starta om om man dör
 * reseta player stats, seacrets och saker.
 * ladda om så att det är banna 1.
-* Implementera någon väg att pausa spelet.
-* titlescreen (ska också förklara hur spelet fungerar)
+* Implementera någon väg att pausa spelet. *
+* titlescreen (ska också förklara hur spelet fungerar) typ
 
 ## Göra bannor
 * Decigna bannor så att de är spelbara och fungerar. 

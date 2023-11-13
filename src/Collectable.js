@@ -10,11 +10,6 @@ export default class Collectable extends Enemy{
         this.positionY = y;
         this.width = width;
         this.height = height;
-        super.adjustHitbox(18, 10)
-        
-        
-        this.frameY = 12;
-        this.frameX = 0;
 
 
     }

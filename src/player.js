@@ -2,165 +2,167 @@ import Projectile from "./Projectile";
 import MeleeAttack from "./MeleeAttack";
 import spriteImage from './assets/sprites/Sprites_botten_av_rutorna.png';
 
-export default class Player{
-    constructor(game){
-    this.game = game;
-    this.positionX = 50;
-    this.positionY = 300;
-    this.width = 64;
-    this.height = 64;
-    this.hp = 3;
-    this.iFrames = 0;
-    
-    this.hitboxYMagicNumber = 7;
-    this.hitboxXMagicNumber = 14;
-    this.hitboxX = this.positionX + this.hitboxXMagicNumber;
-    this.hitboxY = this.positionY + this.hitboxYMagicNumber;
-    this.hitboxWidth = this.width - this.hitboxXMagicNumber*2;
-    this.hitboxHeight = this.height - this.hitboxYMagicNumber;
+export default class Player {
+    constructor(game) {
+        this.game = game;
+        this.positionX = 50;
+        this.positionY = 300;
+        this.width = 64;
+        this.height = 64;
+        this.hp = 3;
+        this.iFrames = 0;
 
-    this.speedX = 0;
-    this.speedY = 0;
-    this.maxSpeed = 5;
-    this.jumpSpeed = 9.5;
-    this.grounded = false;
-    this.coyoteFrames = 0;
-    this.direction = 1;
+        this.hitboxYMagicNumber = 7;
+        this.hitboxXMagicNumber = 14;
+        this.hitboxX = this.positionX + this.hitboxXMagicNumber;
+        this.hitboxY = this.positionY + this.hitboxYMagicNumber;
+        this.hitboxWidth = this.width - this.hitboxXMagicNumber * 2;
+        this.hitboxHeight = this.height - this.hitboxYMagicNumber;
 
-    this.hasGun = false;
-    this.projectiles = [];
-    this.ammo = 3;
-    this.shootTimer = 0;
-    this.fistAttackTimer = 0;
+        this.speedX = 0;
+        this.speedY = 0;
+        this.maxSpeed = 5;
+        this.jumpSpeed = 9.5;
+        this.grounded = false;
+        this.coyoteFrames = 0;
+        this.direction = 1;
 
-    const image = new Image();
-    image.src = spriteImage;
-    this.image = image;
-    this.flip = false;
+        this.hasGun = false;
+        this.projectiles = [];
+        this.ammo = 3;
+        this.shootTimer = 0;
+        this.fistAttackTimer = 0;
 
-    this.frameX = 0
-    this.frameY = 0
-    this.maxFrame = 4
-    this.fps = 12
-    this.timer = 0
-    this.interval = 1000 / this.fps
+        const image = new Image();
+        image.src = spriteImage;
+        this.image = image;
+        this.flip = false;
 
-    this.idelmaxFrame = 1;
-    this.idelFrameY = 0;
+        this.frameX = 0
+        this.frameY = 0
+        this.maxFrame = 4
+        this.fps = 12
+        this.timer = 0
+        this.interval = 1000 / this.fps
 
-    this.runningMaxFrame = 4;
-    this.runningFrameY = 0;
+        this.idelmaxFrame = 1;
+        this.idelFrameY = 0;
 
-    this.jumpingMaxFrame = 6;
-    this.jumpingFrameY = 1;
-    this.jummping = false;
+        this.runningMaxFrame = 4;
+        this.runningFrameY = 0;
 
-    this.attackMaxFrame = 4;
-    this.attackFrameY = 2;
+        this.jumpingMaxFrame = 6;
+        this.jumpingFrameY = 1;
+        this.jummping = false;
+
+        this.attackMaxFrame = 4;
+        this.attackFrameY = 2;
 
     }
 
-    update(deltaTime){
+    update(deltaTime) {
         if (this.grounded)
             this.coyoteFrames = 5;
         else this.coyoteFrames--
 
-        if(this.game.keys.includes('ArrowLeft') || this.game.keys.includes('a')){
+        if (this.game.keys.includes('ArrowLeft') || this.game.keys.includes('a')) {
             this.speedX = -this.maxSpeed;
             this.direction = 0;
             this.maxFrame = this.runningMaxFrame;
             this.frameY = this.runningFrameY;
         }
-        else if(this.game.keys.includes(`ArrowRight`) || this.game.keys.includes('d')){
+        else if (this.game.keys.includes(`ArrowRight`) || this.game.keys.includes('d')) {
             this.speedX = this.maxSpeed;
             this.direction = 1;
             this.maxFrame = this.runningMaxFrame;
             this.frameY = this.runningFrameY;
         }
-        else{
+        else {
             this.speedX = 0;
-            if(this.grounded){
+            if (this.grounded) {
                 this.maxFrame = this.idelmaxFrame;
                 this.frameY = 0;
-            } 
-        }   
-        if(this.game.keys.includes('ArrowUp') && this.grounded || this.game.keys.includes('w') && this.coyoteFrames > 0 || this.game.keys.includes('ArrowUp') && this.coyoteFrames > 0 || this.game.keys.includes('w') && this.grounded){
+            }
+        }
+        if (this.game.keys.includes('ArrowUp') && this.grounded || this.game.keys.includes('w') && this.coyoteFrames > 0 || this.game.keys.includes('ArrowUp') && this.coyoteFrames > 0 || this.game.keys.includes('w') && this.grounded) {
             this.speedY = -this.jumpSpeed;
             this.grounded = false;
             this.maxFrame = this.jumpingMaxFrame;
             this.frameY = this.jumpingFrameY;
             this.jummping = true;
-        } 
+        }
 
         if (this.grounded) {
             this.speedY = 0
             this.jummping = false;
-          } else {
+        } else {
             this.speedY += this.game.gravity
-          }
-          if (this.jummping){
+        }
+        if (this.jummping) {
             this.maxFrame = this.jumpingMaxFrame;
             this.frameY = this.jumpingFrameY;
-          }
-           
+        }
+
         this.positionX += this.speedX;
         this.positionY += this.speedY;
+        if (this.positionX <= 0)
+            this.positionX = 0;
         this.hitboxX = this.positionX + this.hitboxXMagicNumber;
         this.hitboxY = this.positionY + this.hitboxYMagicNumber;
-        
+
+
+
 
         this.projectiles.forEach((projectile) => {
             projectile.update(deltaTime)
-            if (projectile.meleeAttack){
+            if (projectile.meleeAttack) {
                 this.maxFrame = this.attackMaxFrame;
                 this.frameY = this.attackFrameY;
             }
-
-
         })
-            this.projectiles = this.projectiles.filter(
-                (projectile) => !projectile.markedForDeletion
-            )
+        this.projectiles = this.projectiles.filter(
+            (projectile) => !projectile.markedForDeletion
+        )
 
-            if (this.speedX < 0) {
-                this.flip = true
-              } else if (this.speedX > 0) {
-                this.flip = false
-              }
-            
-              if (this.timer > this.interval) {
-                this.frameX++
-                this.timer = 0
-              } else {
-                this.timer += deltaTime
-              }
-            
-              // reset frameX when it reaches maxFrame
-              if (this.frameX >= this.maxFrame) {
-                this.frameX = 0
-              }
+        if (this.speedX < 0) {
+            this.flip = true
+        } else if (this.speedX > 0) {
+            this.flip = false
+        }
 
-        if(this.shootTimer > 0)
+        if (this.timer > this.interval) {
+            this.frameX++
+            this.timer = 0
+        } else {
+            this.timer += deltaTime
+        }
+
+        // reset frameX when it reaches maxFrame
+        if (this.frameX >= this.maxFrame) {
+            this.frameX = 0
+        }
+
+        if (this.shootTimer > 0)
             this.shootTimer -= deltaTime
-        if(this.fistAttackTimer > 0)
+        if (this.fistAttackTimer > 0)
             this.fistAttackTimer -= deltaTime
 
         if (this.iFrames > 0)
             this.iFrames -= deltaTime;
-        }
-    
+    }
 
-    draw(context){
-        this.projectiles.forEach((projectile) => {projectile.draw(context)})
+
+    draw(context) {
+        this.projectiles.forEach((projectile) => { projectile.draw(context) })
         //context.fillStyle = "blue"
         //context.fillRect(this.positionX,this.positionY,this.width,this.height)
 
         if (this.flip) {
             context.save()
             context.scale(-1, 1)
-          }
-      
-          context.drawImage(
+        }
+
+        context.drawImage(
             this.image,
             this.frameX * this.width,
             this.frameY * this.height,
@@ -170,32 +172,32 @@ export default class Player{
             this.positionY,
             this.width,
             this.height
-          )
-          if(this.flip)
+        )
+        if (this.flip)
             context.restore()
-            if (this.game.debug){
-                context.strokeRect(this.positionX, this.positionY, this.width, this.height)
-                context.strokeRect(this.hitboxX,this.hitboxY,this.hitboxWidth,this.hitboxHeight)
-            }
-              
+        if (this.game.debug) {
+            context.strokeRect(this.positionX, this.positionY, this.width, this.height)
+            context.strokeRect(this.hitboxX, this.hitboxY, this.hitboxWidth, this.hitboxHeight)
+        }
+
     }
 
     shoot() {
-        if(this.ammo > 0 && this.shootTimer <= 0 && this.hasGun){
+        if (this.ammo > 0 && this.shootTimer <= 0 && this.hasGun) {
             this.projectiles.push(
-            new Projectile(this.game, this.positionX + this.width/2, this.positionY + this.height / 2, this.direction)
+                new Projectile(this.game, this.positionX + this.width / 2, this.positionY + this.height / 2, this.direction)
             )
             this.ammo--
             this.shootTimer = 500;
-        } 
-      }
-      strike(){
-        if(this.fistAttackTimer <=0){
-            this.projectiles.push(new MeleeAttack(this.game,this.direction))
+        }
+    }
+    strike() {
+        if (this.fistAttackTimer <= 0) {
+            this.projectiles.push(new MeleeAttack(this.game, this.direction))
             this.fistAttackTimer = 600;
             this.frameX = 0;
             this.timer = 0;
         }
-      }
-    
+    }
+
 }

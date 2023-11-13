@@ -34,6 +34,9 @@ export default class InputHandler {
               if (event.key === 'z')
               this.game.player.strike()
 
+              if (event.key === 'Escape')
+                this.game.pause = !this.game.pause
+
 
             if (event.key === 'p') {
               this.game.debug = !this.game.debug

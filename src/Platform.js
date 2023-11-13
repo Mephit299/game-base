@@ -1,19 +1,20 @@
 export default class Platform{
-    constructor(game, x, y, width, height ,bool){
+    constructor(game, x, y, width, height ,bool , seethrough){
         this.game = game;
         this.positionX = x;
         this.positionY = y;
         this.width = width;
         this.height = height;
         this.isSolid = bool;
+        this.seethrough = seethrough;
     }
 
     update(){}
 
     draw(context) {
         context.fillStyle = "green"
-        context.fillRect(this.positionX, this.positionY, this.width, this.height)
-        console.log();
+        if (!this.seethrough)
+          context.fillRect(this.positionX, this.positionY, this.width, this.height)
     
         if (this.game.debug) {
           context.fillStyle = 'black'

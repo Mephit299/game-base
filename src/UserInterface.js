@@ -32,6 +32,16 @@ export default class UserInterface{
             )
           }
 
+          if (this.game.pause){
+            context.fillStyle = this.color;
+            context.font = `70px ${this.fontFamily}`
+            context.fillText('Pause', 320, 100)
+            context.font = `30px ${this.fontFamily}`
+            context.fillText('Move with arrow keys or wasd', 200, 150)
+            context.fillText('Attack with z', 200, 190)
+            context.fillText('Unpause with Escape', 200, 230)
+        }
+
         if (this.game.debug) {
             context.font = `15px Arial`
             context.textAlign = 'right'
@@ -61,6 +71,8 @@ export default class UserInterface{
                 context.fillRect(curentBullet,30,5,15)
             }
         }
+
+        
 
         context.restore()
 

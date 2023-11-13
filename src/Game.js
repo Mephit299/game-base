@@ -40,15 +40,20 @@ export default class Game {
     this.enemies = this.level[this.currentLevel].generateEnemies(this.enemies); 
     this.enemyTimer = 0;
     this.enemyInterval = 1000;
+
+    this.pause = true;
     
   }
 
   update(deltaTime) {
     if( this.player.hp < 1)
       this.gameOver = true;
-    if (!this.gameOver) {
-      this.gameTime += deltaTime
+    if (!this.pause){
+      if (!this.gameOver) {
+        this.gameTime += deltaTime
+      }
     }
+    if (!this.pause){
     this.player.update(deltaTime)
     this.camera.update(this.player)
 
@@ -99,13 +104,15 @@ export default class Game {
       this.enemies.forEach((enemy) => {
         if (this.checkPlatformCollision(enemy, platform)) {
           enemy.speedY = 0
+          enemy.frameY = enemy.runningFrameY;
+          enemy.maxFrame = enemy.runningMaxFrame;
           if (enemy.speedX > Math.abs(enemy.defaultSpeedX))
             enemy.speedX = enemy.defaultSpeedX;
           if (enemy.speedX < Math.abs(enemy.defaultSpeedX) *-1)
             enemy.speedX = enemy.defaultSpeedX;
           enemy.positionY = platform.positionY - enemy.height
           if (enemy.stayOnPlatform){
-            if (enemy.positionX < platform.positionX && enemy.speedX < 0 || enemy.positionX + enemy.width > platform.positionX + platform.width && enemy.speedX > 0)
+            if (enemy.hitboxX < platform.positionX && enemy.speedX < 0 || enemy.hitboxX + enemy.hitboxWidth > platform.positionX + platform.width && enemy.speedX > 0)
               enemy.speedX *= -1
 
           }
@@ -113,9 +120,11 @@ export default class Game {
       })
     })  
   }
+  }
 
   draw(context) {
   //  this.platforms.forEach((platform) => platform.draw(context))
+   // this.background.drawBackground(context)
     this.camera.apply(context); 
     this.background.draw(context)
     this.level[this.currentLevel].draw(context)

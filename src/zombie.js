@@ -11,7 +11,9 @@ export default class Zombie extends Enemy{
         this.score = 2;
         this.hp = 3;
         this.originClass = false;
-        super.adjustHitbox(16,10)
+        super.adjustHitbox(16,16)
+        super.changeSprite(5, 4, 6, 3)
+
         
         
     }
@@ -31,5 +33,12 @@ export default class Zombie extends Enemy{
         this.hitboxY = this.positionY + this.hitboxYMagicNumber;
         }
         if (this.positionX + this.width < 0) this.markedForDeletion = true
+      }
+
+      knockback(direction){
+        super.knockback(direction)
+        this.frameY = this.takesDamageFrameY;
+        this.maxFrame = this.takesDamageMaxFrame;
+        this.frameX = 0;
       }
 }

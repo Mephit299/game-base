@@ -21,5 +21,7 @@ Fiender har icd, knockback, player sprite (är sämst men fungerar), buggfixing
 planering
 * 06/11-2023
 Jag har implementerat sprites och gjort klart kategori 1 av planeringen/prioritetslistan. 
-* 13/11 - 2023
+* 13/11-2023
 Man kan pausa spelet och reseta om man dör. Arbetat med första banan.
+* 16/11-2023
+Arbetat med layouten för första bannan. Gjort fiendeklassen Ghost. Knockback fungerar bettre så fiender går åt rätt håll när de träffar marken. Vill göra dom andra bannorna utifrån assets från dom andra estetarna som jag inte fått grafik ifrån så jag kommer arbeta med fiender och powerups.

@@ -26,6 +26,8 @@ export default class Zombie extends Enemy{
         } else {
           this.speedY += this.game.gravity
         }
+        if (this.speedY > 10)
+          this.speedY = 10;
         if (this.game.player.positionX + this.game.width/2 + 50 > this.positionX || this.game.width +50 > this.positionX){
         this.positionY += this.speedY
         this.positionX += this.speedX
@@ -35,10 +37,4 @@ export default class Zombie extends Enemy{
         if (this.positionX + this.width < 0) this.markedForDeletion = true
       }
 
-      knockback(direction){
-        super.knockback(direction)
-        this.frameY = this.takesDamageFrameY;
-        this.maxFrame = this.takesDamageMaxFrame;
-        this.frameX = 0;
-      }
 }

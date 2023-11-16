@@ -130,6 +130,11 @@ export default class Enemy{
         this.speedY = -this.knockbackSpeedY;
         this.positionY -= 5;
         this.hitboxY -= 5;
+        this.frameY = this.takesDamageFrameY;
+        this.maxFrame = this.takesDamageMaxFrame;
+        this.frameX = 0;
+          
+        
     }
     playerKnockback(){
         if (this.game.player.positionX + 5 < this.positionX){

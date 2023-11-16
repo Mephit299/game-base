@@ -110,7 +110,7 @@ export default class Game {
               if (enemy.speedX > Math.abs(enemy.defaultSpeedX))
                 enemy.speedX = enemy.defaultSpeedX;
               if (enemy.speedX < Math.abs(enemy.defaultSpeedX) * -1)
-                enemy.speedX = enemy.defaultSpeedX;
+                enemy.speedX = -enemy.defaultSpeedX;
               enemy.positionY = platform.positionY - enemy.height
               if (enemy.stayOnPlatform) {
                 if (enemy.hitboxX < platform.positionX && enemy.speedX < 0 || enemy.hitboxX + enemy.hitboxWidth > platform.positionX + platform.width && enemy.speedX > 0)

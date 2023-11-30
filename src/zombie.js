@@ -9,7 +9,7 @@ export default class Zombie extends Enemy{
         this.defaultSpeedX = -2;
         this.speedX = -2;
         this.score = 2;
-        this.hp = 3;
+        this.hp = 4;
         this.originClass = false;
         super.adjustHitbox(16,16)
         super.changeSprite(5, 4, 6, 3)

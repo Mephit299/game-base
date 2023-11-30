@@ -10,7 +10,7 @@ export default class HealthPotion extends Collectable{
     
     pickUp(){ 
         if (!this.game.gameOver)
-        if (this.game.player.hp <5)
+        if (this.game.player.hp <7)
             this.game.player.hp++
         else this.game.scoreCounter += 4;
         this.markedForDeletion = true;

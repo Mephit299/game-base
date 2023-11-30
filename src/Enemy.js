@@ -75,6 +75,8 @@ export default class Enemy{
           if (this.frameX >= this.maxFrame) {
             this.frameX = 0
           }
+        this.hitboxX = this.positionX + this.hitboxXMagicNumber;
+        this.hitboxY = this.positionY + this.hitboxYMagicNumber;
     }
     
 
@@ -138,16 +140,16 @@ export default class Enemy{
     }
     playerKnockback(){
         if (this.game.player.positionX + 5 < this.positionX){
-            this.speedX = this.knockbackSpeedX
+            this.speedX = this.knockbackSpeedX -2
             this.positionX += 10
             this.hitboxX += 10
         }
         else{
-            this.speedX = -this.knockbackSpeedX;
+            this.speedX = -this.knockbackSpeedX +2;
             this.positionX -= 10;
             this.hitboxX -= 10
         } 
-        this.speedY = -this.knockbackSpeedY;
+        this.speedY = -this.knockbackSpeedY- +2;
         this.positionY -= 5;
         this.hitboxY -= 5;
     }

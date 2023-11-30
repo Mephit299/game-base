@@ -73,6 +73,7 @@ export default class Game {
                 this.player.hp--
               enemy.playerKnockback()
               this.player.iFrames = 300;
+              this.player.knockback(enemy.flip)
             }
           }
           this.player.projectiles.forEach((projectile) => {
@@ -192,7 +193,7 @@ export default class Game {
     this.deltaTime = 0;
     this.currentLevel = 30
     this.nextLevel()
-    this.player.hp = 3;
+    this.player.hp = 5;
     this.player.ammo = 3;
     this.gameOver  = false;
     this.pause = true;
@@ -200,8 +201,10 @@ export default class Game {
     this.camera.y = 0;
     this.scoreCounter = 0;
     this.gameTime = 0;
-    InputHandler.secret = '';
+    this.input.secret = '';
     this.player.hasGun  = false;
+    this.player.speedX = 0;
+    this.player.speedY = 0;
 
   }
 }

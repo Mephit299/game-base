@@ -19,12 +19,12 @@
 
 ## Göra bannor
 * Decigna bannor så att de är spelbara och fungerar. 
-* De ska ha en bakgrund och mark som ritade för mina sprites för bakgrunder  
+* De ska ha en bakgrund och mark som ritade för mina sprites för bakgrunder *
 * Platformar, fiender och powerupps på lämliga ställen. 
 * lämpliga platser för att gå till nästa banna.
 
 ## Fiender och powerups
-* Göra en boss till spelet
+* Göra en boss till spelet *
 * Göra en powerup som kan ändra hur spelaren rör på sig (Hur sanbb den är/ hur högt den hoppar)
 * En powerup som ändrar skada på saker.
 * Fiender kan droppa powerups.

@@ -1,6 +1,7 @@
 import Map from "../Map";
 import NextLevelTrigger from "../NextLevelTrigger";
 import Platform from "../Platform";
+import Vampire from "../Vampire";
 import HealthPotion from "../healthPotion";
 import Zombie from "../zombie";
 
@@ -20,11 +21,11 @@ export default class levelTwo extends Map {
     }
     generateEnemies(enemies){
         enemies = [];
-        enemies.push(new Zombie(this.game,700,400),
-            new Zombie(this.game, 700,160),
+        enemies.push(new Vampire(this.game,700,365),
+            new Zombie(this.game, 700,120),
             new Zombie(this.game, 1200, 350),
-            new HealthPotion(this.game,760,140),
-            new NextLevelTrigger(this.game,1400,400))
+            new HealthPotion(this.game,760,120),
+            new NextLevelTrigger(this.game,1400,365))
             
             return(enemies);
     }

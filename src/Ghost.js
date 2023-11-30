@@ -8,12 +8,34 @@ export default class Ghost extends Enemy {
         this.defaultSpeedX = -3;
         this.speedX = -3;
         this.score = 2;
-        this.hp = 5;
+        this.hp = 3;
         this.originClass = false;
         super.adjustHitbox(16, 16)
         super.changeSprite(7, 4, 8, 3)
         this.spanXMin = this.positionX - dx;
         this.spanXMax = this.positionX + dx;
+    }
+
+    update(deltaTime) {
+        super.update(deltaTime)
+        if (this.grounded) {
+            this.speedY = 0
+            this.speedX = this.defaultSpeedX;
+        } else {
+            this.speedY += this.game.gravity
+        }
+        if (this.speedY > 10)
+            this.speedY = 10;
+        if (this.positionX <= this.spanXMin)
+            this.speedX = Math.abs(this.speedX);
+        else if (this.positionX >= this.spanXMax)
+            this.speedX = Math.abs(this.speedX) * -1;
+        this.positionY += this.speedY
+        this.positionX += this.speedX
+        this.hitboxX = this.positionX + this.hitboxXMagicNumber;
+        this.hitboxY = this.positionY + this.hitboxYMagicNumber;
+
+        if (this.positionX + this.width < 0) this.markedForDeletion = true
     }
 
     draw(context){
@@ -55,25 +77,4 @@ export default class Ghost extends Enemy {
           }
     }
 
-    update(deltaTime) {
-        super.update(deltaTime)
-        if (this.grounded) {
-            this.speedY = 0
-            this.speedX = this.defaultSpeedX;
-        } else {
-            this.speedY += this.game.gravity
-        }
-        if (this.speedY > 10)
-            this.speedY = 10;
-        if (this.positionX <= this.spanXMin)
-            this.speedX = Math.abs(this.speedX);
-        else if (this.positionX >= this.spanXMax)
-            this.speedX = Math.abs(this.speedX) * -1;
-        this.positionY += this.speedY
-        this.positionX += this.speedX
-        this.hitboxX = this.positionX + this.hitboxXMagicNumber;
-        this.hitboxY = this.positionY + this.hitboxYMagicNumber;
-
-        if (this.positionX + this.width < 0) this.markedForDeletion = true
-    }
 }

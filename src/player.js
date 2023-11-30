@@ -9,7 +9,7 @@ export default class Player {
         this.positionY = 365;
         this.width = 64;
         this.height = 64;
-        this.hp = 3;
+        this.hp = 5;
         this.iFrames = 0;
 
         this.hitboxYMagicNumber = 7;
@@ -58,38 +58,48 @@ export default class Player {
         this.attackMaxFrame = 4;
         this.attackFrameY = 2;
 
+        this.lockMovment = false;
+        this.lockMovmentTimer = 0;
+        this.knockbackSpeedY = 4;
+        this.knockbackSpeedX = 5;
+
     }
 
     update(deltaTime) {
         if (this.grounded)
             this.coyoteFrames = 5;
         else this.coyoteFrames--
-
-        if (this.game.keys.includes('ArrowLeft') || this.game.keys.includes('a')) {
-            this.speedX = -this.maxSpeed;
-            this.direction = 0;
-            this.maxFrame = this.runningMaxFrame;
-            this.frameY = this.runningFrameY;
-        }
-        else if (this.game.keys.includes(`ArrowRight`) || this.game.keys.includes('d')) {
-            this.speedX = this.maxSpeed;
-            this.direction = 1;
-            this.maxFrame = this.runningMaxFrame;
-            this.frameY = this.runningFrameY;
-        }
-        else {
-            this.speedX = 0;
-            if (this.grounded) {
-                this.maxFrame = this.idelmaxFrame;
-                this.frameY = 0;
+        if (this.lockMovmentTimer >=0)
+            this.lockMovmentTimer--
+        if(this.lockMovmentTimer<=0)
+            this.lockMovment = false
+        if (!this.lockMovment) {
+            if (this.game.keys.includes('ArrowLeft') || this.game.keys.includes('a')) {
+                this.speedX = -this.maxSpeed;
+                this.direction = 0;
+                this.maxFrame = this.runningMaxFrame;
+                this.frameY = this.runningFrameY;
             }
-        }
-        if (this.game.keys.includes('ArrowUp') && this.grounded || this.game.keys.includes('w') && this.coyoteFrames > 0 || this.game.keys.includes('ArrowUp') && this.coyoteFrames > 0 || this.game.keys.includes('w') && this.grounded) {
-            this.speedY = -this.jumpSpeed;
-            this.grounded = false;
-            this.maxFrame = this.jumpingMaxFrame;
-            this.frameY = this.jumpingFrameY;
-            this.jummping = true;
+            else if (this.game.keys.includes(`ArrowRight`) || this.game.keys.includes('d')) {
+                this.speedX = this.maxSpeed;
+                this.direction = 1;
+                this.maxFrame = this.runningMaxFrame;
+                this.frameY = this.runningFrameY;
+            }
+            else {
+                this.speedX = 0;
+                if (this.grounded) {
+                    this.maxFrame = this.idelmaxFrame;
+                    this.frameY = 0;
+                }
+            }
+            if (this.game.keys.includes('ArrowUp') && this.grounded || this.game.keys.includes('w') && this.coyoteFrames > 0 || this.game.keys.includes('ArrowUp') && this.coyoteFrames > 0 || this.game.keys.includes('w') && this.grounded) {
+                this.speedY = -this.jumpSpeed;
+                this.grounded = false;
+                this.maxFrame = this.jumpingMaxFrame;
+                this.frameY = this.jumpingFrameY;
+                this.jummping = true;
+            }
         }
 
         if (this.grounded) {
@@ -198,6 +208,16 @@ export default class Player {
             this.frameX = 0;
             this.timer = 0;
         }
+    }
+    knockback(flip){
+        if (!flip)
+            this.speedX = this.knockbackSpeedX
+        else this.speedX = -this.knockbackSpeedX;
+        this.speedY = -this.knockbackSpeedY;
+        this.positionY -= 5;
+        this.hitboxY -= 5;
+        this.lockMovment = true
+        this.lockMovmentTimer = 15;
     }
 
 }

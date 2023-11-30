@@ -4,6 +4,8 @@ import Zombie from "../zombie";
 import HealthPotion from "../healthPotion";
 import NextLevelTrigger from "../NextLevelTrigger";
 import Ghost from "../Ghost";
+import Boss from "../Boss";
+import Vampire from "../Vampire";
 
 export default class levelOne extends Map {
     constructor(game){
@@ -25,9 +27,10 @@ export default class levelOne extends Map {
             new Zombie(this.game, 1340, 235),
             new Zombie(this.game,2550,200),
             new Ghost(this.game, 1800, 365, 250),
-            new Ghost(this.game, 2730, 365, 220),
+            //new Ghost(this.game, 2730, 365, 220),
+            new Boss(this.game, 2730, 340, true),
             new HealthPotion(this.game, 1070 , 140),
-            new NextLevelTrigger(this.game,2900,210))
+            new HealthPotion(this.game,2900,210))
             return(enemies);
     }
 

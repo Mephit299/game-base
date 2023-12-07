@@ -5,9 +5,9 @@ export default class Ghost extends Enemy {
         super(game)
         this.positionX = x;
         this.positionY = y;
-        this.defaultSpeedX = -3;
-        this.speedX = -3;
-        this.score = 2;
+        this.defaultSpeedX = -3.5;
+        this.speedX = -3.5;
+        this.score = 3;
         this.hp = 3;
         this.originClass = false;
         super.adjustHitbox(16, 16)

@@ -69,9 +69,9 @@ export default class Player {
         if (this.grounded)
             this.coyoteFrames = 5;
         else this.coyoteFrames--
-        if (this.lockMovmentTimer >=0)
+        if (this.lockMovmentTimer >= 0)
             this.lockMovmentTimer--
-        if(this.lockMovmentTimer<=0)
+        if (this.lockMovmentTimer <= 0)
             this.lockMovment = false
         if (!this.lockMovment) {
             if (this.game.keys.includes('ArrowLeft') || this.game.keys.includes('a')) {
@@ -163,6 +163,7 @@ export default class Player {
 
 
     draw(context) {
+        console.log(this.grounded);
         this.projectiles.forEach((projectile) => { projectile.draw(context) })
         //context.fillStyle = "blue"
         //context.fillRect(this.positionX,this.positionY,this.width,this.height)
@@ -209,7 +210,7 @@ export default class Player {
             this.timer = 0;
         }
     }
-    knockback(flip){
+    knockback(flip) {
         if (!flip)
             this.speedX = this.knockbackSpeedX
         else this.speedX = -this.knockbackSpeedX;

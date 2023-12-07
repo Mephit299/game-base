@@ -1,4 +1,5 @@
 import Enemy from "./Enemy";
+import HealthPotion from "./healthPotion";
 
 export default class Vampire extends Enemy {
     constructor(game, x, y) {
@@ -8,8 +9,8 @@ export default class Vampire extends Enemy {
         this.stayOnPlatform = true;
         this.defaultSpeedX = -5;
         this.speedX = -1.5;
-        this.score = 3;
-        this.hp = 4;
+        this.score = 4;
+        this.hp = 3;
         this.originClass = false;
         super.adjustHitbox(16, 16)
         super.changeSprite(3, 4, 4, 3)
@@ -17,7 +18,6 @@ export default class Vampire extends Enemy {
 
     update(deltaTime) {
         super.update(deltaTime)
-        console.log(this.game.player.positionX - this.positionX > 400);
         if (this.grounded) {
             this.speedY = 0
             this.speedX = this.defaultSpeedX;
@@ -26,8 +26,7 @@ export default class Vampire extends Enemy {
         }
         if (this.speedY > 10)
             this.speedY = 10;
-        if (this.game.player.positionX - this.positionX <= 184 && this.game.player.positionX - this.positionX >= -130) {
-            console.log('pog');
+        if (this.game.player.positionX - this.positionX <= 130 && this.game.player.positionX - this.positionX >= -124) {
             if (this.flip)
                 this.speedX = -5;
             else if (!this.flip)
@@ -53,6 +52,12 @@ export default class Vampire extends Enemy {
     playerKnockback(){
         super.playerKnockback()
         this.hp++
+    }
+
+    isDead(){
+        super.isDead()
+        if  (this.markedForDeletion)
+            this.game.enemies.push(new HealthPotion(this.game, this.positionX +10, this.positionY))
     }
 
 }

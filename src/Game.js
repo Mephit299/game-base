@@ -100,6 +100,7 @@ export default class Game {
             } else {
               this.player.positionY = platform.positionY - this.player.height
               this.player.grounded = true
+              console.log(this.player.grounded);
             }
             this.player.speedY = 0
           }

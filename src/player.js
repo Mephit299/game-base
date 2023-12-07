@@ -163,7 +163,6 @@ export default class Player {
 
 
     draw(context) {
-        console.log(this.grounded);
         this.projectiles.forEach((projectile) => { projectile.draw(context) })
         //context.fillStyle = "blue"
         //context.fillRect(this.positionX,this.positionY,this.width,this.height)

@@ -27,5 +27,5 @@
 * Göra en boss till spelet *
 * Göra en powerup som kan ändra hur spelaren rör på sig (Hur sanbb den är/ hur högt den hoppar)
 * En powerup som ändrar skada på saker.
-* Fiender kan droppa powerups.
+* Fiender kan droppa powerups. *
 

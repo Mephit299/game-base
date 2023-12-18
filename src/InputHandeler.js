@@ -5,6 +5,7 @@ export default class InputHandler {
         this.shootTimer = 0;
         this.game = game
         this.secret = '';
+        this.debugMenu = 'pp'
         this.awnser = 'ArrowUpArrowUpArrowDownArrowDownArrowLeftArrowRightArrowLeftArrowRightba';
         window.addEventListener('keydown', (event) => {
             console.log(event.key)
@@ -24,6 +25,7 @@ export default class InputHandler {
             this.secret += event.key
             if (this.secret.includes(this.awnser)){
               this.game.player.hasGun = true;
+              this.debugMenu = 'p'
             }
             if (this.secret.length >1000)
               this.secret =''
@@ -42,7 +44,7 @@ export default class InputHandler {
               }
 
 
-            if (event.key === 'p') {
+            if (event.key === this.debugMenu) {
               this.game.debug = !this.game.debug
             }
             if(this.game.debug && event.key === 'l')

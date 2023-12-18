@@ -1,4 +1,7 @@
 # Dokumentation
+
+##### Inget av det här är rättat för stavning.
+
 I vår grupp bestämde vi att vi skulle göra 2d platformers.
 Man skulle kunna besegra fiender , hopa runt och komma till olika bannor.
 Kraven på mig sjät var att i första hand göra en 2d platformer enligt vad gruppen hade bestämt och sen mer friviligt göra fungtioner som passade spelet och konceptet.
@@ -12,6 +15,9 @@ Grafik var ingen stor priotering för vi hade inte fått någon när jag böraja
 För att se vad jag jobbade med och när gå till logg.md och för mina prioteringar när jag gjorde spelet se tidsplanering.md eller kolla comits och comit-medelanden.
 
 ## förklara förändringar till spelmotorn.
+#### jag vet inte vad fan du vill att jag faktiskt ska skriva här
+
+Jag har inte gjort några större ändringar eller använda några unika koncept som inte fanns i grundkoden. Att exdenda en klass här och där och göra fler variabler käns inte så specielt. Jag gissar att det ända som är unikt är jag tänkte på att ändra vilken del i mitt spritesheat när ändringen sker. Det finns en trigger för varje ställe där jag skulle vilja ändra animation så jag bara ändrade animation på de ställena. Det är fortfarande bara att lägga till och ändra variabler så det är inte unikt men jag vet inte vad arnas du vill att jag ska skriva. Det finns okså bakgrunden där jag inte kollade på någon grundkod fast den är bara att deklarera bilder och använda drawImage flera gånger, inget unikt. 
 
 # Utvärdering av uppgiften
 ### Bra
